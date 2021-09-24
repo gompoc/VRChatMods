@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <VrcReferences>true</VrcReferences>
+        <Version>0.3.3.0</Version>
+        <LangVersion>9</LangVersion>
+        <CopyToMods>true</CopyToMods>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+    <ItemGroup>
+      <EmbeddedResource Include="actionmenuapi.icons" />
+    </ItemGroup>
+</Project>
