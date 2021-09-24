@@ -71,7 +71,7 @@ namespace StandaloneThirdPerson
 
         private static KeyCode ParseKeyCode(string value)
         {
-            return (KeyCode) Enum.Parse(typeof(KeyCode), value);
+            return (KeyCode) Enum.Parse(typeof(KeyCode), value, true);
         }
     }
 }
