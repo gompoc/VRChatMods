@@ -10,6 +10,9 @@ ProjectSection(SolutionItems) = preProject
 	Directory.Build.props = Directory.Build.props
 EndProjectSection
 EndProject
+
+Project("{DA3EF296-0E10-44D0-8EB4-A44CC02AAB15}") = "ActionMenuApi", "ActionMenuApi\ActionMenuApi.csproj", "{4F1AFCA6-F4AC-49B9-9FEE-3C83C4664835}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldPredownload", "WorldPredownload\WorldPredownload.csproj", "{24F66D86-8B5C-4E4E-BCC2-06662E66C0EC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActionMenuUtils", "ActionMenuUtils\ActionMenuUtils.csproj", "{7477F0C4-44AC-4049-A81E-E6A66F28B73C}"
@@ -23,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StandaloneThirdPerson", "St
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateChecker", "UpdateChecker\UpdateChecker.csproj", "{2D0C38BE-2E7A-4E10-A066-9397D319EC4E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActionMenuTestMod", "ActionMenuTestMod\ActionMenuTestMod.csproj", "{3E808C0A-0BF6-4DC6-808C-3BF377CC1E8E}"
+EndProject
 
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +35,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+								{4F1AFCA6-F4AC-49B9-9FEE-3C83C4664835}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+								{4F1AFCA6-F4AC-49B9-9FEE-3C83C4664835}.Debug|Any CPU.Build.0 = Debug|Any CPU
+								{4F1AFCA6-F4AC-49B9-9FEE-3C83C4664835}.Release|Any CPU.ActiveCfg = Release|Any CPU
+								{4F1AFCA6-F4AC-49B9-9FEE-3C83C4664835}.Release|Any CPU.Build.0 = Release|Any CPU
 		{24F66D86-8B5C-4E4E-BCC2-06662E66C0EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{24F66D86-8B5C-4E4E-BCC2-06662E66C0EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24F66D86-8B5C-4E4E-BCC2-06662E66C0EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -54,5 +63,9 @@ Global
 		{2D0C38BE-2E7A-4E10-A066-9397D319EC4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D0C38BE-2E7A-4E10-A066-9397D319EC4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D0C38BE-2E7A-4E10-A066-9397D319EC4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E808C0A-0BF6-4DC6-808C-3BF377CC1E8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E808C0A-0BF6-4DC6-808C-3BF377CC1E8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E808C0A-0BF6-4DC6-808C-3BF377CC1E8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E808C0A-0BF6-4DC6-808C-3BF377CC1E8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

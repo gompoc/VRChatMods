@@ -121,11 +121,6 @@
         </Reference>
     </ItemGroup>
     <ItemGroup Condition="'$(VrcReferences)' == 'true'">
-        <Reference Include="ActionMenuApi, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(VRChatFolder)\Mods\ActionMenuApi.dll</HintPath>
-        </Reference>
         <Reference Include="MelonLoader, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
