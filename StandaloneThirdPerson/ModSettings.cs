@@ -6,7 +6,7 @@ namespace StandaloneThirdPerson
 {
     public static class ModSettings
     {
-        private static readonly string categoryName = "StandaloneThirdPerson";
+        private const string CATEGORY_NAME = "StandaloneThirdPerson";
 
         private static MelonPreferences_Entry<string> keyBind,
             freeformKeyBind,
@@ -29,7 +29,7 @@ namespace StandaloneThirdPerson
 
         public static void RegisterSettings()
         {
-            var category = MelonPreferences.CreateCategory(categoryName, categoryName);
+            var category = MelonPreferences.CreateCategory(CATEGORY_NAME, CATEGORY_NAME);
             keyBind = category.CreateEntry("Keybind", KeyBind.ToString(), "Keybind");
             freeformKeyBind = category.CreateEntry("Freeform Keybind", FreeformKeyBind.ToString(), "Freeform Keybind");
             fov = category.CreateEntry("Camera FOV", FOV, "Camera FOV");

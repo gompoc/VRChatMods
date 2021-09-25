@@ -7,4 +7,4 @@ namespace UpdateChecker
         public List<string> aliases;
         public List<ModVersion> versions;
     }
-}
+}   
