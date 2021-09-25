@@ -95,7 +95,7 @@ namespace WorldPredownload
         private delegate void WorldInfoSetupDelegate(IntPtr thisPtr, IntPtr apiWorld, IntPtr apiWorldInstance, byte something1, byte something2, byte something3, IntPtr apiUser);
     }
 
-    //I accidently found that this neat little method which opens the notification more actions page a while ago while fixing up advanced invites 
+    //I accidentally found that this neat little method which opens the notification more actions page a while ago while fixing up advanced invites 
     //[HarmonyPatch(typeof(NotificationManager), "Method_Private_Void_Notification_1")]
     internal class NotificationMoreActions
     {
