@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -62,7 +63,7 @@ namespace WorldPredownload
 
                 // Thanks to Knah
                 var originalMethod = *(IntPtr*) (IntPtr) UnhollowerUtils.GetIl2CppMethodInfoPointerFieldForGeneratedMethod(setupMethod).GetValue(null);
-
+                
                 MelonUtils.NativeHookAttach((IntPtr) (&originalMethod),
                     typeof(WorldInfoSetup).GetMethod(nameof(Postfix), BindingFlags.Static | BindingFlags.Public)!
                         .MethodHandle.GetFunctionPointer());
@@ -71,11 +72,11 @@ namespace WorldPredownload
             }
         }
 
-        public static void Postfix(IntPtr thisPtr, IntPtr apiWorldPtr, IntPtr apiWorldInstancePtr, byte something1, byte something2, IntPtr additionalJunkPtr)
+        public static void Postfix(IntPtr thisPtr, IntPtr apiWorldPtr, IntPtr apiWorldInstancePtr, byte something1, byte something2, byte something3, IntPtr apiUserPtr)
         {
             try
             {
-                worldInfoSetupDelegate(thisPtr, apiWorldPtr, apiWorldInstancePtr, something1, something2, additionalJunkPtr);
+                worldInfoSetupDelegate(thisPtr, apiWorldPtr, apiWorldInstancePtr, something1, something2, something3, apiUserPtr);
                 if (apiWorldPtr == IntPtr.Zero) return;
                 var apiWorld = new ApiWorld(apiWorldPtr);
                 if (apiWorld.assetUrl == null) return; // This patch gets called twice. First time with a null url & a second time with a valid one
@@ -91,8 +92,7 @@ namespace WorldPredownload
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        private delegate void WorldInfoSetupDelegate(IntPtr thisPtr, IntPtr apiWorld, IntPtr apiWorldInstance,
-            byte something1, byte something2, IntPtr additionalJunk);
+        private delegate void WorldInfoSetupDelegate(IntPtr thisPtr, IntPtr apiWorld, IntPtr apiWorldInstance, byte something1, byte something2, byte something3, IntPtr apiUser);
     }
 
     //I accidently found that this neat little method which opens the notification more actions page a while ago while fixing up advanced invites 
