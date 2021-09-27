@@ -55,6 +55,14 @@ namespace StandaloneThirdPerson
 
         private static KeyCode TryParseKeyCodePref(this MelonPreferences_Entry<string> pref, bool canBeNone = false)
         {
+            if (pref is null)
+            {
+                MelonLogger.Error("TryParseKeyCodePref was passed a null pref, this shouldn't have happened, please send your log into the #log-scanner channel in the vrcmg and ping gompo");
+            }
+            if (pref.Value is null)
+            {
+                MelonLogger.Error("TryParseKeyCodePref was passed a pref with a null value, this shouldn't have happened, please send your log into the #log-scanner channel in the vrcmg and ping gompo");
+            }
             try
             {
                 if (!canBeNone && pref.Value.Equals("None"))

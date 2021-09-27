@@ -1,3 +1,7 @@
+### StandaloneThirdPerson v1.2.1
+- Added a few more null checks to help track down annoying bug
+- Keybind value case no longer matters (`T` and `t` are now the same and both are valid)
+
 ### WorldPredownload v1.6.2
 - Patch out possible memory leak
 
