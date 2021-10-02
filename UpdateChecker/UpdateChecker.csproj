@@ -21,7 +21,7 @@
             <IlRepackLibs Include="$(OutputPath)" />
             <IlRepackLibs Condition="'$(CIVAR)'==''" Include="$(MelonManaged)" />
             <IlRepackLibs Condition="'$(CIVAR)'==''" Include="$(MelonLoader)" />
-            <IlRepackLibs Condition="'$(CIVAR)'!=''" Include="$(MsBuildThisFileDirectory)Libs" />
+            <IlRepackLibs Condition="'$(CIVAR)'!=''" Include="$(MsBuildThisFileDirectory)/../Libs" />
         </ItemGroup>
         <Message Text="MERGING: @(InputAssemblies->'%(Filename)') into $(OutputAssembly)" Importance="High" />
         <ILRepack Internalize="true" LibraryPath="@(IlRepackLibs)" OutputFile="$(OutputPath)/$(AssemblyName).dll" InputAssemblies="@(InputAssemblies)" />
