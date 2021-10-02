@@ -86,8 +86,12 @@ namespace ModJsonGenerator
             ourMod.downloadlink = $"{args[3]}/releases/download/{currentDate.Year}-{currentDate.Month:00}-{currentDate.Day:00}/{ourMod.name}.dll";
 
             var generatedJson = JsonConvert.SerializeObject(ourMod, Formatting.Indented);
+
+            var modJsonFolder = Path.Combine(args[2], "ModJsons");
             
-            File.WriteAllText(Path.Combine(args[2], "ModJsons", $"{ourMod.name}.json"), generatedJson);
+            Directory.CreateDirectory(modJsonFolder);
+            
+            File.WriteAllText(Path.Combine(modJsonFolder, $"{ourMod.name}.json"), generatedJson);
 
         cleanup:
             var attributeToNuke = assembly.CustomAttributes.SingleOrDefault(attribute =>

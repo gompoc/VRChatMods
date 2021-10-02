@@ -39,7 +39,6 @@ ProjectSection(SolutionItems) = preProject
 	ModJsons\StandaloneThirdPerson.json = ModJsons\StandaloneThirdPerson.json
 	ModJsons\UpdateChecker.json = ModJsons\UpdateChecker.json
 	ModJsons\WorldPredownload.json = ModJsons\WorldPredownload.json
-	ModJsons\.gitignore = ModJsons\.gitignore
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mods", "Mods", "{0AD02E34-80CC-4F88-9854-EB8DCA598060}"
