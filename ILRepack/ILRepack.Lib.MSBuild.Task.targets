@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(ProjectDir)ILRepack.Config.props" Condition="Exists('$(ProjectDir)ILRepack.Config.props')" />
   <Choose>
@@ -39,4 +39,4 @@
     </ItemGroup>
     <RemoveDir Directories="@(Directories)" Condition="%(Files)=='0'" />
   </Target>
-</Project>
+</Project

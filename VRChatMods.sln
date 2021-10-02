@@ -8,6 +8,7 @@ ProjectSection(SolutionItems) = preProject
 	LICENSE = LICENSE
 	.gitignore = .gitignore
 	Directory.Build.props = Directory.Build.props
+	.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 EndProjectSection
 EndProject
 
