@@ -39,6 +39,7 @@ ProjectSection(SolutionItems) = preProject
 	ModJsons\StandaloneThirdPerson.json = ModJsons\StandaloneThirdPerson.json
 	ModJsons\UpdateChecker.json = ModJsons\UpdateChecker.json
 	ModJsons\WorldPredownload.json = ModJsons\WorldPredownload.json
+	ModJsons\.gitignore = ModJsons\.gitignore
 EndProjectSection
 EndProject
 
