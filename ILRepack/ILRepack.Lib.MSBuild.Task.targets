@@ -39,4 +39,4 @@
     </ItemGroup>
     <RemoveDir Directories="@(Directories)" Condition="%(Files)=='0'" />
   </Target>
-</Project
+</Project>
