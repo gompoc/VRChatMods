@@ -1,0 +1,43 @@
+name: .NET
+on:
+  push:
+    branches: [ master ]
+  create:
+    tags:
+     - '*'
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Checkout VRCLibs
+      uses: actions/checkout@v2
+      with:
+        repository: ${{ secrets.VRCLibsRepo }}
+        token: ${{ secrets.VRCLibsRepoToken }}
+        path: Libs    
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+      
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Build
+      run: dotnet build --no-restore
+      
+    - name: Upload Mod Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Mods
+        path: |
+          Output/Release/ActionMenuApi.dll
+          Output/Release/ActionMenuApi.xml
+          Output/Release/ActionMenuTestMod.dll
+          Output/Release/ActionMenuUtils.dll
+          Output/Release/StandaloneThirdPerson.dll
+          Output/Release/UpdateChecker.dll
+          Output/Release/WorldPredownload.dll
+          
