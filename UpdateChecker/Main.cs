@@ -8,7 +8,7 @@ using Semver;
 using Main = UpdateChecker.Main;
 
 [assembly: MelonGame("VRChat", "VRChat")]
-[assembly: MelonInfo(typeof(Main), "UpdateChecker", "1.0.0", "gompo", "https://github.com/gompocp/VRChatMods/releases/")]
+[assembly: MelonInfo(typeof(Main), "UpdateChecker", "1.0.0", "gompo", "https://github.com/gompoc/VRChatMods/releases/")]
 [assembly: MelonColor(ConsoleColor.Magenta)]
 [assembly: ModJsonInfo(
         249, 

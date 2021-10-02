@@ -3,7 +3,7 @@ using ModJsonGenerator;
 using UIExpansionKit.API;
 using WorldPredownload.UI;
 
-[assembly: MelonInfo(typeof(WorldPredownload.WorldPredownload), "WorldPredownload", "1.6.2", "gompo", "https://github.com/gompocp/VRChatMods/releases/")]
+[assembly: MelonInfo(typeof(WorldPredownload.WorldPredownload), "WorldPredownload", "1.6.2", "gompo", "https://github.com/gompoc/VRChatMods/releases/")]
 [assembly: MelonGame("VRChat", "VRChat")]
 [assembly: VerifyLoaderVersion(0, 4, 3, true)]
 [assembly: ModJsonInfo(
