@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
+﻿using System.Collections;
 using HarmonyLib;
 using MelonLoader;
 using UnityEngine;
+using UnityEngine.XR;
 using Main = StandaloneThirdPerson.Main;
 
 [assembly: MelonGame("VRChat", "VRChat")]
@@ -21,25 +20,23 @@ namespace StandaloneThirdPerson
         private static bool initialised;
 
         internal static bool Allowed;
-        
-        public override void OnApplicationStart()
-        {
-            //Credits to https://github.com/Psychloor/PlayerRotater/blob/master/PlayerRotater/ModMain.cs#L40 for this vr check
-            if (Environment.GetCommandLineArgs().All(args => !args.Equals("--no-vr", StringComparison.OrdinalIgnoreCase))) return;
-            ModSettings.RegisterSettings();
-            ModSettings.LoadSettings();
-            MelonCoroutines.Start(WaitForUIInit());
-        }
+
+        public override void OnApplicationStart() => MelonCoroutines.Start(WaitForUIInit());
 
         private static IEnumerator WaitForUIInit()
         {
             while (VRCUiManager.prop_VRCUiManager_0 == null)
                 yield return new WaitForEndOfFrame();
+            if (XRDevice.isPresent)
+                yield break;
             OnUIInit();
         }
 
         private static void OnUIInit()
         {
+            ModSettings.RegisterSettings();
+            ModSettings.LoadSettings();
+            
             vrcCamera = GameObject.Find("Camera (eye)")?.GetComponent<Camera>();
 
             if (vrcCamera == null)

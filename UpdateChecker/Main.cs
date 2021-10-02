@@ -40,8 +40,8 @@ namespace UpdateChecker
                 return;
             }
             
-            Dictionary<string, ModVersion> workingModsLookUpTable = new Dictionary<string, ModVersion>();
-            Dictionary<string, ModVersion> brokenModsLookUpTable = new Dictionary<string, ModVersion>();
+            var workingModsLookUpTable = new Dictionary<string, ModVersion>();
+            var brokenModsLookUpTable = new Dictionary<string, ModVersion>();
             
             foreach (var mod in mods)
             {
