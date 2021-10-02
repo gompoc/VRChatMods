@@ -5,5 +5,9 @@
         <Version>1.2.1.0</Version>
         <LangVersion>9</LangVersion>
         <CopyToMods>true</CopyToMods>
+        <GenerateJson>true</GenerateJson>
     </PropertyGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\ModJsonGenerator\ModJsonGenerator.csproj" />
+    </ItemGroup>
 </Project>

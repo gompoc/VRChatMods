@@ -30,6 +30,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateChecker", "UpdateChec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActionMenuTestMod", "ActionMenuTestMod\ActionMenuTestMod.csproj", "{3E808C0A-0BF6-4DC6-808C-3BF377CC1E8E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModJsonGenerator", "ModJsonGenerator\ModJsonGenerator.csproj", "{F322D01C-5D09-417B-BA0A-A7ECF501E9BF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ModJsons", "ModJsons", "{95E54976-2D6F-45C8-97AB-02795D86757A}"
+ProjectSection(SolutionItems) = preProject
+	ModJsons\ActionMenuApi.json = ModJsons\ActionMenuApi.json
+	ModJsons\ActionMenuUtils.json = ModJsons\ActionMenuUtils.json
+	ModJsons\StandaloneThirdPerson.json = ModJsons\StandaloneThirdPerson.json
+	ModJsons\UpdateChecker.json = ModJsons\UpdateChecker.json
+	ModJsons\WorldPredownload.json = ModJsons\WorldPredownload.json
+EndProjectSection
+EndProject
 
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,5 +80,9 @@ Global
 		{3E808C0A-0BF6-4DC6-808C-3BF377CC1E8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E808C0A-0BF6-4DC6-808C-3BF377CC1E8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E808C0A-0BF6-4DC6-808C-3BF377CC1E8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F322D01C-5D09-417B-BA0A-A7ECF501E9BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F322D01C-5D09-417B-BA0A-A7ECF501E9BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F322D01C-5D09-417B-BA0A-A7ECF501E9BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F322D01C-5D09-417B-BA0A-A7ECF501E9BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

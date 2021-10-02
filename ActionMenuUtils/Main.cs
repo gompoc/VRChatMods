@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using ActionMenuApi.Api;
 using MelonLoader;
+using ModJsonGenerator;
 using UnhollowerRuntimeLib;
 using UnhollowerRuntimeLib.XrefScans;
 using UnityEngine;
@@ -15,8 +16,19 @@ using Main = ActionMenuUtils.Main;
 
 [assembly: MelonGame("VRChat", "VRChat")]
 [assembly: MelonOptionalDependencies("ActionMenuApi")]
-[assembly: MelonInfo(typeof(Main), "ActionMenuUtils", "1.3.11", "gompo", "https://github.com/gompocp/VRChatMods/releases/")]
+[assembly: MelonInfo(typeof(Main), "ActionMenuUtils", "1.3.11", "gompo", "https://github.com/gompoc/VRChatMods/releases/")]
 [assembly: VerifyLoaderVersion(0, 4, 2, true)]
+[assembly: ModJsonInfo(
+        140, 
+        "Lets you respawn using the action menu\n" +
+        "Lets you go home for when respawning wont save you such as in broken worlds with no floors\n" +
+        "Additionally lets you reset avatar or rejoin instance", 
+        new []{"action menu", "respawn", "go home", "reset avatar"}, 
+        null, 
+        null,
+        "#2ad9f7"
+        )
+]
 
 namespace ActionMenuUtils
 {

@@ -6,11 +6,15 @@
         <LangVersion>9</LangVersion>
         <CopyToMods>true</CopyToMods>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <GenerateJson>true</GenerateJson>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
       <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
     <ItemGroup>
       <EmbeddedResource Include="actionmenuapi.icons" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\ModJsonGenerator\ModJsonGenerator.csproj" />
     </ItemGroup>
 </Project>

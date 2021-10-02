@@ -5,6 +5,7 @@
         <VRChatFolder>E:\Windows\Programs\Software\SteamLibrary\steamapps\common\VRChat</VRChatFolder>
         <MelonManaged>$(VRChatFolder)\MelonLoader\Managed</MelonManaged>
         <MelonLoader>$(VRChatFolder)\MelonLoader</MelonLoader>
+        <GithubRepoUrl>https://github.com/gompoc/VRChatMods</GithubRepoUrl>
         <CIVAR>$(CI)</CIVAR>
     </PropertyGroup>
     <ItemGroup Condition="'$(VrcReferences)' == 'true'">
@@ -220,7 +221,10 @@
     <Target Name="RandomizeIntegrityChecks" AfterTargets="PostBuildEvent" Condition="'$(NoModReferences)' != 'true'">
         <Exec Command="$(MsBuildThisFileDirectory)\Output\$(Configuration)\IntegrityCheckWeaver.exe $(OutputPath)/$(AssemblyName).dll" />
     </Target>
-    <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(CopyToMods)' == 'true' And '$(CIVAR)'==''">
+    <Target Name="GenerateModJson" AfterTargets="RandomizeIntegrityChecks" Condition="'$(GenerateJson)' == 'true'"> 
+        <Exec Command="$(MsBuildThisFileDirectory)\Output\$(Configuration)\ModJsonGenerator.exe $(OutputPath)/$(AssemblyName).dll $(VRChatFolder) $(MsBuildThisFileDirectory) $(GithubRepoUrl) '$(CIVAR)'" />
+    </Target>
+    <Target Name="CopyModToModsFolder" AfterTargets="GenerateModJson" Condition="'$(CopyToMods)' == 'true' And '$(CIVAR)'==''">
         <Exec Command="xcopy /c /f /y $(OutputPath)\$(AssemblyName).dll $(VRChatFolder)\Mods" />
     </Target>
 </Project>

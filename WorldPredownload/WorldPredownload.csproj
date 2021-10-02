@@ -8,9 +8,14 @@
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <Nullable>annotations</Nullable>
         <CopyToMods>true</CopyToMods>
+        <GenerateJson>true</GenerateJson>
     </PropertyGroup>
     
     <ItemGroup>
         <EmbeddedResource Include="gompowpd" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\ModJsonGenerator\ModJsonGenerator.csproj" />
     </ItemGroup>
 </Project>
