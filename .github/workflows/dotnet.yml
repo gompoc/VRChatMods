@@ -28,11 +28,12 @@ jobs:
     - name: Build
       run: dotnet build --no-restore --configuration release
       
-    - name: Upload Mod Artifacts
-      uses: actions/upload-artifact@v2
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
       with:
-        name: Mods
-        path: |
+        body_path: Release.md
+        files: |
           Output/Release/ActionMenuApi.dll
           Output/Release/ActionMenuApi.xml
           Output/Release/ActionMenuTestMod.dll
@@ -40,4 +41,8 @@ jobs:
           Output/Release/StandaloneThirdPerson.dll
           Output/Release/UpdateChecker.dll
           Output/Release/WorldPredownload.dll
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+        
           
