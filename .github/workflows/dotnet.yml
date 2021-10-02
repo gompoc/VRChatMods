@@ -1,7 +1,5 @@
 name: .NET
 on:
-  push:
-    branches: [ master ]
   create:
     tags:
      - '*'
