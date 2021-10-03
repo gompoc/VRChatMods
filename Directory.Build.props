@@ -215,8 +215,8 @@
         <OutputPath>$(MsBuildThisFileDirectory)\Output\$(Configuration)\</OutputPath>
     </PropertyGroup>
     <ItemGroup Condition="'$(VrcReferences)' == 'true'">
-        <ProjectReference Include="$(MsBuildThisFileDirectory)/IntegrityCheckGenerator/IntegrityCheckGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-        <ProjectReference Include="$(MsBuildThisFileDirectory)IntegrityCheckWeaver\IntegrityCheckWeaver.csproj" PrivateAssets="all"/>
+        <ProjectReference Include="$(MsBuildThisFileDirectory)/Tools/IntegrityCheckGenerator/IntegrityCheckGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+        <ProjectReference Include="$(MsBuildThisFileDirectory)Tools\IntegrityCheckWeaver\IntegrityCheckWeaver.csproj" PrivateAssets="all"/>
     </ItemGroup>
     <Target Name="RandomizeIntegrityChecks" AfterTargets="PostBuildEvent" Condition="'$(NoModReferences)' != 'true'">
         <Exec Command="$(MsBuildThisFileDirectory)\Output\$(Configuration)\IntegrityCheckWeaver.exe $(OutputPath)/$(AssemblyName).dll" />

@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
@@ -11,7 +10,7 @@ namespace IntegrityCheckGenerator
     [Generator]
     class IntegrityCheckGenerator : ISourceGenerator
     {
-        private static readonly DiagnosticDescriptor ourGenerationFailed = new("ICG0000",
+        private static readonly DiagnosticDescriptor OurGenerationFailed = new("ICG0000",
             "Generation failed", "{0}", "Generators", DiagnosticSeverity.Error, true); 
         
         public void Initialize(GeneratorInitializationContext context)
@@ -32,13 +31,13 @@ namespace IntegrityCheckGenerator
 
                 if (decl.Modifiers.All(it => it.ValueText != "partial"))
                 {
-                    context.ReportDiagnostic(Diagnostic.Create(ourGenerationFailed, decl.GetLocation(), "Mod is not partial"));
+                    context.ReportDiagnostic(Diagnostic.Create(OurGenerationFailed, decl.GetLocation(), "Mod is not partial"));
                     continue;
                 }
 
                 if (modTypeName != null)
                 {
-                    context.ReportDiagnostic(Diagnostic.Create(ourGenerationFailed, decl.GetLocation(), "Too many mods in one project"));
+                    context.ReportDiagnostic(Diagnostic.Create(OurGenerationFailed, decl.GetLocation(), "Too many mods in one project"));
                     continue;
                 }
 
@@ -50,7 +49,7 @@ namespace IntegrityCheckGenerator
 
             if (modTypeName == null)
             {
-                context.ReportDiagnostic(Diagnostic.Create(ourGenerationFailed, null, "Too many mods in one project"));
+                context.ReportDiagnostic(Diagnostic.Create(OurGenerationFailed, null, "Too many mods in one project"));
                 return;
             }
 
@@ -58,7 +57,9 @@ namespace IntegrityCheckGenerator
 
             generatedCode.AppendLine("using HarmonyLib;");
             generatedCode.AppendLine("using System;");
+            generatedCode.AppendLine("using System.Linq;");
             generatedCode.AppendLine("using System.Collections;");
+            generatedCode.AppendLine("using System.Collections.Generic;");
             generatedCode.AppendLine("using System.IO;");
             generatedCode.AppendLine("using System.Reflection;");
             generatedCode.AppendLine("using System.Runtime.InteropServices;");
@@ -77,6 +78,7 @@ namespace IntegrityCheckGenerator
             generatedCode.AppendLine("CheckA();");
             generatedCode.AppendLine("CheckB();");
             generatedCode.AppendLine("CheckC();");
+            generatedCode.AppendLine("CheckD();");
             generatedCode.AppendLine("CheckWasSuccessful = true;");
             generatedCode.AppendLine("}");
         
@@ -138,6 +140,13 @@ namespace IntegrityCheckGenerator
             PrintCheckFailedCode(generatedCode, 2);
             generatedCode.AppendLine("    }");
             generatedCode.AppendLine("    catch (BadImageFormatException) {}");
+            generatedCode.AppendLine("}");
+            
+
+            generatedCode.AppendLine("internal static void CheckD() {");
+            generatedCode.AppendLine("    if (typeof(MelonHandler).GetProperties().Count(p => p.PropertyType == typeof(List<MelonMod>)) != 1){");
+            PrintCheckFailedCode(generatedCode, 2);
+            generatedCode.AppendLine("    }");
             generatedCode.AppendLine("}");
 
             generatedCode.AppendLine("private static bool ReturnFalse() => false;");

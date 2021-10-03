@@ -11,9 +11,9 @@
       <PackageReference Include="semver" Version="2.0.6" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\ModJsonGenerator\ModJsonGenerator.csproj" />
+        <ProjectReference Include="..\Tools\ModJsonGenerator\ModJsonGenerator.csproj" />
     </ItemGroup>
-    <Import Project="$(MsBuildThisFileDirectory)/../ILRepack/ILRepack.Lib.MSBuild.Task.targets" />
+    <Import Project="$(MsBuildThisFileDirectory)/../Tools/ILRepack/ILRepack.Lib.MSBuild.Task.targets" />
 
     <Target Name="ILRepack" AfterTargets="Build">
         <PropertyGroup>

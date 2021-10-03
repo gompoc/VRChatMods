@@ -8,6 +8,6 @@
         <GenerateJson>true</GenerateJson>
     </PropertyGroup>
     <ItemGroup>
-      <ProjectReference Include="..\ModJsonGenerator\ModJsonGenerator.csproj" />
+        <ProjectReference Include="..\Tools\ModJsonGenerator\ModJsonGenerator.csproj" />
     </ItemGroup>
 </Project>
