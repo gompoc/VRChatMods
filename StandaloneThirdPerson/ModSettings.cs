@@ -9,32 +9,40 @@ namespace StandaloneThirdPerson
         private const string CATEGORY_NAME = "StandaloneThirdPerson";
 
         private static MelonPreferences_Entry<string> keyBind,
+            freeformSecondaryKeyBind,
+            secondaryKeyBind,
             freeformKeyBind,
             moveRearCameraLeftKeyBind,
             moveRearCameraRightKeyBind;
 
         private static MelonPreferences_Entry<float> fov, nearClipPlane;
-        private static MelonPreferences_Entry<bool> enabled, rearCameraChangerEnabled;
+        private static MelonPreferences_Entry<bool> enabled, rearCameraChangerEnabled, freeformEnabled;
         public static bool RearCameraChangedEnabled = true;
 
 
         public static KeyCode KeyBind { get; private set; } = KeyCode.T;
+        public static KeyCode SecondaryKeyBind { get; private set; } = KeyCode.None;
         public static KeyCode FreeformKeyBind { get; private set; } = KeyCode.None;
+        public static KeyCode FreeformSecondaryKeyBind { get; private set; } = KeyCode.None;
         public static KeyCode MoveRearCameraLeftKeyBind { get; private set; } = KeyCode.Q;
         public static KeyCode MoveRearCameraRightKeyBind { get; private set; } = KeyCode.E;
         public static float FOV { get; private set; } = 80;
         public static float NearClipPlane { get; private set; } = 0.01f;
         public static bool Enabled { get; private set; } = true;
+        public static bool FreeformEnabled { get; private set; } = true;
 
 
         public static void RegisterSettings()
         {
             var category = MelonPreferences.CreateCategory(CATEGORY_NAME, CATEGORY_NAME);
-            keyBind = category.CreateEntry("Keybind", KeyBind.ToString(), "Keybind");
+            keyBind = category.CreateEntry("Keybind", KeyBind.ToString(), "Toggle Third Person Keybind");
+            secondaryKeyBind = category.CreateEntry("Secondary Keybind", SecondaryKeyBind.ToString(), "Toggle Third Person Secondary Keybind", "(Set to None to disable)");
             freeformKeyBind = category.CreateEntry("Freeform Keybind", FreeformKeyBind.ToString(), "Freeform Keybind");
+            freeformSecondaryKeyBind = category.CreateEntry("Freeform Secondary Keybind", FreeformSecondaryKeyBind.ToString(), "Freeform Secondary Keybind");
             fov = category.CreateEntry("Camera FOV", FOV, "Camera FOV");
             nearClipPlane = category.CreateEntry("Camera NearClipPlane Value", NearClipPlane, "Camera NearClipPlane Value");
             enabled = category.CreateEntry("Mod Enabled", Enabled, "Mod Enabled");
+            freeformEnabled = category.CreateEntry("Freeform Enabled", FreeformEnabled, "Freeform Enabled");
             rearCameraChangerEnabled = category.CreateEntry("Rear Camera Changer Enabled", RearCameraChangedEnabled, "Rear Camera Changer Enabled");
             moveRearCameraLeftKeyBind = category.CreateEntry("Move Rear Camera Left KeyBind", MoveRearCameraLeftKeyBind.ToString(), "Move Rear Camera Left KeyBind");
             moveRearCameraRightKeyBind = category.CreateEntry("Move Rear Camera Right KeyBind", MoveRearCameraRightKeyBind.ToString(), "Move Rear Camera Right KeyBind");
@@ -43,14 +51,18 @@ namespace StandaloneThirdPerson
         public static void LoadSettings()
         {
             KeyBind = keyBind.TryParseKeyCodePref();
+            SecondaryKeyBind = secondaryKeyBind.TryParseKeyCodePref(true);
             FreeformKeyBind = freeformKeyBind.TryParseKeyCodePref(true);
+            FreeformSecondaryKeyBind = freeformSecondaryKeyBind.TryParseKeyCodePref(true);
             MoveRearCameraLeftKeyBind = moveRearCameraLeftKeyBind.TryParseKeyCodePref();
             MoveRearCameraRightKeyBind = moveRearCameraRightKeyBind.TryParseKeyCodePref();
             NearClipPlane = nearClipPlane.Value;
             FOV = fov.Value;
             Enabled = enabled.Value;
+            FreeformEnabled = freeformEnabled.Value;
             RearCameraChangedEnabled = rearCameraChangerEnabled.Value;
             Main.UpdateCameraSettings();
+            Main.UpdateInputCheckerDel();
         }
 
         private static KeyCode TryParseKeyCodePref(this MelonPreferences_Entry<string> pref, bool canBeNone = false)

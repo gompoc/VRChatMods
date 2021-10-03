@@ -41,25 +41,26 @@ namespace ActionMenuUtils
         private static Texture2D resetAvatarIcon;
         private static Texture2D rejoinInstanceIcon;
         private static ActionMenuAPI actionMenuApi;
-        private static MelonMod Instance;
-        public new static HarmonyLib.Harmony HarmonyInstance => Instance.HarmonyInstance;
+        private static MelonMod instance;
+        public new static HarmonyLib.Harmony HarmonyInstance => instance.HarmonyInstance;
 
 
         public override void OnApplicationStart()
         {
-            Instance = this;
+            instance = this;
             try
             {
                 if (string.IsNullOrEmpty(ID)) return;
                 //Adapted from knah's JoinNotifier mod found here: https://github.com/knah/VRCMods/blob/master/JoinNotifier/JoinNotifierMod.cs 
                 using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("ActionMenuUtils.icons"))
-                using (var tempStream = new MemoryStream((int)stream.Length))
                 {
+                    using var tempStream = new MemoryStream((int)stream.Length);
                     stream.CopyTo(tempStream);
 
                     iconsAssetBundle = AssetBundle.LoadFromMemory_Internal(tempStream.ToArray(), 0);
                     iconsAssetBundle.hideFlags |= HideFlags.DontUnloadUnusedAsset;
                 }
+
                 respawnIcon = iconsAssetBundle.LoadAsset_Internal("Assets/Resources/Refresh.png", Il2CppType.Of<Texture2D>()).Cast<Texture2D>();
                 respawnIcon.hideFlags |= HideFlags.DontUnloadUnusedAsset;
                 helpIcon = iconsAssetBundle.LoadAsset_Internal("Assets/Resources/Help.png", Il2CppType.Of<Texture2D>()).Cast<Texture2D>();
@@ -195,12 +196,13 @@ namespace ActionMenuUtils
     static class Utils
     {
         //Gracefully taken from Advanced Invites https://github.com/Psychloor/AdvancedInvites/blob/master/AdvancedInvites/Utilities.cs#L356
-        public static bool XRefScanFor(this MethodBase methodBase, string searchTerm)
+        private static bool XRefScanFor(this MethodBase methodBase, string searchTerm)
         {
             return XrefScanner.XrefScan(methodBase).Any(
                 xref => xref.Type == XrefType.Global && xref.ReadAsObject()?.ToString().IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0);
         }
-        public static GoHomeDelegate GetGoHomeDelegate
+
+        private static GoHomeDelegate GetGoHomeDelegate
         {
             get
             {
@@ -215,9 +217,11 @@ namespace ActionMenuUtils
                 return goHomeDelegate;
             }
         }
-        public static void GoHome() => GetGoHomeDelegate();
+
+        private static void GoHome() => GetGoHomeDelegate();
         private static GoHomeDelegate goHomeDelegate;
-        public delegate void GoHomeDelegate();
+
+        private delegate void GoHomeDelegate();
 
         public static void Respawn()
         {
@@ -241,6 +245,7 @@ namespace ActionMenuUtils
 
         public static void ResetAvatar()
         {
+            //TODO: Pick your own avatar for reset
             ObjectPublicAbstractSealedApObApStApApUnique.Method_Public_Static_Void_ApiAvatar_String_ApiAvatar_0(API.Fetch<ApiAvatar>("avtr_c38a1615-5bf5-42b4-84eb-a8b6c37cbd11"), "fallbackAvatar");
         }
     }

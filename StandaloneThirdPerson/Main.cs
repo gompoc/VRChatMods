@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using HarmonyLib;
 using MelonLoader;
 using ModJsonGenerator;
@@ -7,7 +8,7 @@ using UnityEngine.XR;
 using Main = StandaloneThirdPerson.Main;
 
 [assembly: MelonGame("VRChat", "VRChat")]
-[assembly: MelonInfo(typeof(Main), "StandaloneThirdPerson", "1.2.1", "gompo & ljoonal", "https://github.com/gompoc/VRChatMods/releases/")]
+[assembly: MelonInfo(typeof(Main), "StandaloneThirdPerson", "1.3.0", "gompo & ljoonal", "https://github.com/gompoc/VRChatMods/releases/")]
 [assembly: ModJsonInfo(
         242, 
     "A simple standalone third person mod\n" +
@@ -17,8 +18,9 @@ using Main = StandaloneThirdPerson.Main;
     "- Has a \"freecam\". Keybind needs to be set first to use. You can use arrow keys to look up/down/left/right and I/J/K/L to move the camera", 
     new []{"Third person", "freecam", "freeview", "camera"}, 
     null, 
-    "- Added a few more null checks to help track down annoying bug\n" +
-    "- Keybind value case no longer matters (`T` and `t` are now the same and both are valid)", 
+    "- Fixed issue with mod not showing when not launching through steam (--no-vr)\n"+
+    "- Added secondary keybinds for third person toggle and freeform toggle, you can leave these as `None` or set them to `LeftControl` for example\n"+
+    "- Added a setting to enable/disable freeform", 
     "#2ad9f7"
     )
 ]
@@ -120,13 +122,29 @@ namespace StandaloneThirdPerson
                 thirdPersonCamera.enabled = false;
         }
 
+        public static void UpdateInputCheckerDel()
+        {
+            if (ModSettings.SecondaryKeyBind == KeyCode.None)
+                keyBindInputDelegate = () => Input.GetKeyDown(ModSettings.KeyBind);
+            else
+                keyBindInputDelegate = () => Input.GetKey(ModSettings.SecondaryKeyBind) && Input.GetKeyDown(ModSettings.KeyBind);
+            
+            if (ModSettings.FreeformSecondaryKeyBind == KeyCode.None)
+                freeformKeyBindInputDelegate = () => Input.GetKeyDown(ModSettings.FreeformKeyBind);
+            else
+                freeformKeyBindInputDelegate = () => Input.GetKey(ModSettings.FreeformSecondaryKeyBind) && Input.GetKeyDown(ModSettings.FreeformKeyBind);
+        }
+        private static ToggledDelegate keyBindInputDelegate;
+        private static ToggledDelegate freeformKeyBindInputDelegate;
+        delegate bool ToggledDelegate();
+
         public override void OnUpdate()
         {
             if (!initialised || !ModSettings.Enabled || !Allowed || Utils.IsBigMenuOpen() ||
                 QMEnableDisableListener.Enabled)
                 return;
 
-            if (Input.GetKeyDown(ModSettings.KeyBind))
+            if (keyBindInputDelegate())
             {
                 currentMode++;
                 if (currentMode > CameraMode.InFront) currentMode = CameraMode.Normal;
@@ -140,7 +158,7 @@ namespace StandaloneThirdPerson
                     thirdPersonCamera.enabled = false;
                 }
             }
-            else if (Input.GetKeyDown(ModSettings.FreeformKeyBind))
+            else if (ModSettings.FreeformEnabled && freeformKeyBindInputDelegate())
             {
                 if (currentMode == CameraMode.Freeform)
                 {

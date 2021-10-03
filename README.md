@@ -74,7 +74,7 @@ More information [here](https://github.com/gompocp/ActionMenuApi)
 - Has a Freeform camera (thanks ljoonal <3)
 - You can scroll in and out using the mouse scroll wheel
 - You can switch to behind shoulders too in rear view mode
-- KeyBinds configurable via uix/the config file. Valid values can be found [here](https://docs.unity3d.com/ScriptReference/KeyCode.html) (exluding `None`)
+- KeyBinds configurable via uix/the config file. Valid values can be found [here](https://docs.unity3d.com/ScriptReference/KeyCode.html)
 ![UIX Settings](https://i.imgur.com/KoRTTqU.png) 
 - Third person camera fov and nearclipplane value can be edited as well via uix/the config file
 

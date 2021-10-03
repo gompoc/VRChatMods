@@ -10,6 +10,7 @@ ProjectSection(SolutionItems) = preProject
 	Directory.Build.props = Directory.Build.props
 	.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 	RELEASE.md = RELEASE.md
+	AMAPI.md = AMAPI.md
 EndProjectSection
 EndProject
 
