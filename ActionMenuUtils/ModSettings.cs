@@ -12,23 +12,54 @@ namespace ActionMenuUtils
         public static bool confirmInstanceRejoin { get; private set; } = true;
         public static bool forceGoHome { get; private set; } = false;
 
+        public static bool enableCustomAvatarReset { get; private set; } = false;
+
+        public static string customAvatarId;
+        public static string fallbackAvatarId;
+        
+
+        private static MelonPreferences_Entry<bool> ConfirmRespawn,
+            ConfirmGoHome,
+            ConfirmAvatarReset,
+            ConfirmInstanceRejoin,
+            ForceGoHome,
+            EnableCustomAvatarReset;
+
+        private static MelonPreferences_Entry<string> CustomAvatarId, FallbackAvatarId;
+
         public static void RegisterSettings()
         {
-            MelonPreferences.CreateCategory(categoryName, categoryDisplayName);
-            MelonPreferences.CreateEntry(categoryName, "ConfirmRespawn", confirmRespawn, "Add a confirmation for respawn");
-            MelonPreferences.CreateEntry(categoryName, "ConfirmGoHome", confirmGoHome, "Add a confirmation for go home");
-            MelonPreferences.CreateEntry(categoryName, "ForceGoHome", forceGoHome, "Skip the go home popup");
-            MelonPreferences.CreateEntry(categoryName, "ConfirmAvatarReset", confirmAvatarReset, "Add a confirmation for avatar reset");
-            MelonPreferences.CreateEntry(categoryName, "ConfirmInstanceReJoin", confirmInstanceRejoin, "Add a confirmation for rejoin instance");
+            var category = MelonPreferences.CreateCategory(categoryName, categoryDisplayName);
+            ConfirmRespawn = category.CreateEntry("ConfirmRespawn", confirmRespawn, "Add a confirmation for respawn");
+            ConfirmGoHome = category.CreateEntry( "ConfirmGoHome", confirmGoHome, "Add a confirmation for go home");
+            ForceGoHome = category.CreateEntry("ForceGoHome", forceGoHome, "Skip the go home popup");
+            ConfirmAvatarReset = category.CreateEntry("ConfirmAvatarReset", confirmAvatarReset, "Add a confirmation for avatar reset");
+            ConfirmInstanceRejoin = category.CreateEntry("ConfirmInstanceReJoin", confirmInstanceRejoin, "Add a confirmation for rejoin instance");
+            EnableCustomAvatarReset = category.CreateEntry("EnableCustomAvatarReset", enableCustomAvatarReset, "Use custom avatar when resetting");
+            CustomAvatarId = category.CreateEntry("CustomAvatarId", customAvatarId, "", true) as MelonPreferences_Entry<string>;
+            FallbackAvatarId = category.CreateEntry("FallbackAvatarId", fallbackAvatarId, "", true) as MelonPreferences_Entry<string>;
         }
 
         public static void Apply()
         {
-            confirmRespawn = MelonPreferences.GetEntryValue<bool>(categoryName, "ConfirmRespawn");
-            confirmGoHome = MelonPreferences.GetEntryValue<bool>(categoryName, "ConfirmGoHome");
-            forceGoHome = MelonPreferences.GetEntryValue<bool>(categoryName, "ForceGoHome");
-            confirmAvatarReset = MelonPreferences.GetEntryValue<bool>(categoryName, "ConfirmAvatarReset");
-            confirmInstanceRejoin = MelonPreferences.GetEntryValue<bool>(categoryName, "ConfirmInstanceReJoin");
+            confirmRespawn = ConfirmRespawn.Value;
+            confirmGoHome = ConfirmGoHome.Value;
+            forceGoHome = ForceGoHome.Value;
+            confirmAvatarReset = ConfirmAvatarReset.Value;
+            confirmInstanceRejoin = ConfirmInstanceRejoin.Value;
+            enableCustomAvatarReset = EnableCustomAvatarReset.Value;
+            customAvatarId = CustomAvatarId.Value;
+            fallbackAvatarId = FallbackAvatarId.Value;
+            
+            if(Main.UIXAvatarMenuButton is {}) 
+                Main.UIXAvatarMenuButton.active = enableCustomAvatarReset;
+        }
+
+        public static void Save()
+        {
+            CustomAvatarId.Value = customAvatarId;
+            FallbackAvatarId.Value = fallbackAvatarId;
+            MelonPreferences.Save();
         }
     }
 }

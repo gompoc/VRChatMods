@@ -1,31 +1,27 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using ActionMenuApi.Api;
 using MelonLoader;
 using ModJsonGenerator;
+using UIExpansionKit.API;
 using UnhollowerRuntimeLib;
-using UnhollowerRuntimeLib.XrefScans;
 using UnityEngine;
-using UnityEngine.UI;
-using VRC.Animation;
-using VRC.Core;
-using VRC.SDKBase;
+using VRC;
 using Main = ActionMenuUtils.Main;
 
 [assembly: MelonGame("VRChat", "VRChat")]
-[assembly: MelonOptionalDependencies("ActionMenuApi")]
-[assembly: MelonInfo(typeof(Main), "ActionMenuUtils", "1.3.11", "gompo", "https://github.com/gompoc/VRChatMods/releases/")]
-[assembly: VerifyLoaderVersion(0, 4, 2, true)]
+[assembly: MelonInfo(typeof(Main), "ActionMenuUtils", "2.0.0", "gompo", "https://github.com/gompoc/VRChatMods/releases/")]
+[assembly: VerifyLoaderVersion(0, 4, 3, true)]
 [assembly: ModJsonInfo(
         140, 
         "Lets you respawn using the action menu\n" +
         "Lets you go home for when respawning wont save you such as in broken worlds with no floors\n" +
         "Additionally lets you reset avatar or rejoin instance", 
         new []{"action menu", "respawn", "go home", "reset avatar"}, 
-        null, 
-        null,
+        new []{"[ActionMenuApi](https://api.vrcmg.com/v0/mods/201/ActionMenuApi.dll)", "[UIExpansionKit](https://api.vrcmg.com/v0/mods/55/UIExpansionKit.dll)"}, 
+        "- Mod now depends on ActionMenuApi & UIExpansionKit, this just makes maintaining it easier for me when/if something breaks\n"+
+        "- New setting added that you can enable so you can now select which avatar you want to reset into. You can select avatar by going to the AvatarMenu and clicking the UIExpansionKit button on the left",
         "#2ad9f7"
         )
 ]
@@ -40,14 +36,9 @@ namespace ActionMenuUtils
         private static Texture2D goHomeIcon;
         private static Texture2D resetAvatarIcon;
         private static Texture2D rejoinInstanceIcon;
-        private static ActionMenuAPI actionMenuApi;
-        private static MelonMod instance;
-        public new static HarmonyLib.Harmony HarmonyInstance => instance.HarmonyInstance;
-
-
+        
         public override void OnApplicationStart()
         {
-            instance = this;
             try
             {
                 if (string.IsNullOrEmpty(ID)) return;
@@ -77,21 +68,36 @@ namespace ActionMenuUtils
             }
             ModSettings.RegisterSettings();
             ModSettings.Apply();
-            if(MelonHandler.Mods.Any(m => m.Info.Name.Equals("ActionMenuApi"))) {
-                SetupButtonsForAMAPI();
-            }
-            else
-            {
-                actionMenuApi = new ActionMenuAPI();
-                SetupButtons();
-            }
+            SetupAMAPIButtons();
+            SetupUIXButtons();
+        }
+
+        private static void SetupUIXButtons()
+        {
+            ExpansionKitApi.GetExpandedMenu(ExpandedMenu.AvatarMenu).AddSimpleButton("Set as reset avatar for ActionMenuUtils", 
+                () =>
+                {
+                    var avatarId = GameObject.Find("UserInterface/MenuContent/Screens/Avatar/AvatarPreviewBase/MainRoot/MainModel").GetComponent<SimpleAvatarPedestal>().field_Internal_ApiAvatar_0.id;
+                    var fallbackAvatarId =GameObject.Find("UserInterface/MenuContent/Screens/Avatar/AvatarPreviewBase/FallbackRoot/FallbackModel").GetComponent<SimpleAvatarPedestal>().field_Internal_ApiAvatar_0.id;
+                    ModSettings.customAvatarId = avatarId;
+                    ModSettings.fallbackAvatarId = fallbackAvatarId;
+                    ModSettings.Save();
+#if DEBUG
+                    MelonLogger.Msg($"{avatarId},{fallbackAvatarId}");
+#endif
+
+                },
+                g =>
+                {
+                    UIXAvatarMenuButton = g;
+                    UIXAvatarMenuButton.active = ModSettings.enableCustomAvatarReset;
+                });
             
         }
-        
-        
 
-       
-        private static void SetupButtonsForAMAPI()
+        public static GameObject UIXAvatarMenuButton;
+        
+        private static void SetupAMAPIButtons()
         {
             VRCActionMenuPage.AddSubMenu(ActionMenuPage.Options, "SOS",
                 () =>
@@ -138,115 +144,7 @@ namespace ActionMenuUtils
 
         public override void OnPreferencesLoaded() => ModSettings.Apply();
         public override void OnPreferencesSaved() => ModSettings.Apply();
-
-
-        private static void SetupButtons()
-        {
-           
-            actionMenuApi.AddPedalToExistingMenu(ActionMenuAPI.ActionMenuPageType.Options, delegate
-            {
-                actionMenuApi.CreateSubMenu(() => {
-                    
-                    if (ModSettings.confirmRespawn)
-                        actionMenuApi.AddPedalToCustomMenu(() => 
-                
-                                actionMenuApi.CreateSubMenu(() =>
-                                    actionMenuApi.AddPedalToCustomMenu(Utils.Respawn, "Confirm Respawn", respawnIcon)
-                                ), "Respawn", respawnIcon
-                        );
-                    else
-                        actionMenuApi.AddPedalToCustomMenu(Utils.Respawn, "Respawn", respawnIcon);
-                    
-                    if (ModSettings.confirmGoHome)
-                        actionMenuApi.AddPedalToCustomMenu(() =>
-                                actionMenuApi.CreateSubMenu( () =>
-                                    actionMenuApi.AddPedalToCustomMenu(Utils.Home, "Confirm Go Home", goHomeIcon)
-                                ), "Go Home", goHomeIcon
-                        );
-                    else
-                        actionMenuApi.AddPedalToCustomMenu(Utils.Home, "Go Home", goHomeIcon);
-                    
-                    if (ModSettings.confirmAvatarReset)
-                        actionMenuApi.AddPedalToCustomMenu(() =>
-                                actionMenuApi.CreateSubMenu(() =>
-                                    actionMenuApi.AddPedalToCustomMenu(Utils.ResetAvatar, "Confirm Reset Avatar", resetAvatarIcon)
-                                ), "Reset Avatar", resetAvatarIcon
-                        );
-                    else
-                        actionMenuApi.AddPedalToCustomMenu(Utils.ResetAvatar, "Reset Avatar", resetAvatarIcon);
-                    
-                    if (ModSettings.confirmInstanceRejoin)
-                    {
-                        actionMenuApi.AddPedalToCustomMenu(() => 
-                
-                                actionMenuApi.CreateSubMenu(() =>
-                                    actionMenuApi.AddPedalToCustomMenu(Utils.RejoinInstance, "Confirm Instance Rejoin", rejoinInstanceIcon)
-                                ), "Rejoin Instance", rejoinInstanceIcon
-                        );
-                    }
-                    else
-                        actionMenuApi.AddPedalToCustomMenu(Utils.RejoinInstance, "Rejoin Instance", rejoinInstanceIcon);
-                    
-                });
-            }, "Help", helpIcon);
-        }
+        
         private static string ID = "gompo";
-    }
-
-    static class Utils
-    {
-        //Gracefully taken from Advanced Invites https://github.com/Psychloor/AdvancedInvites/blob/master/AdvancedInvites/Utilities.cs#L356
-        private static bool XRefScanFor(this MethodBase methodBase, string searchTerm)
-        {
-            return XrefScanner.XrefScan(methodBase).Any(
-                xref => xref.Type == XrefType.Global && xref.ReadAsObject()?.ToString().IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0);
-        }
-
-        private static GoHomeDelegate GetGoHomeDelegate
-        {
-            get
-            {
-                if (goHomeDelegate != null) return goHomeDelegate;
-                MethodInfo goHomeMethod = typeof(VRCFlowManager).GetMethods(BindingFlags.Public | BindingFlags.Instance).First(
-                    m => m.GetParameters().Length == 0 && m.ReturnType == typeof(void) && m.XRefScanFor("Going to Home Location: "));
-
-                goHomeDelegate = (GoHomeDelegate)Delegate.CreateDelegate(
-                    typeof(GoHomeDelegate),
-                    VRCFlowManager.prop_VRCFlowManager_0,
-                    goHomeMethod);
-                return goHomeDelegate;
-            }
-        }
-
-        private static void GoHome() => GetGoHomeDelegate();
-        private static GoHomeDelegate goHomeDelegate;
-
-        private delegate void GoHomeDelegate();
-
-        public static void Respawn()
-        {
-            GameObject.Find("UserInterface/QuickMenu/ShortcutMenu/RespawnButton").GetComponent<Button>().onClick.Invoke();
-            VRCPlayer.field_Internal_Static_VRCPlayer_0.GetComponent<VRCMotionState>().Reset();
-        }
-
-        public static void RejoinInstance()
-        {
-            var instance = RoomManager.field_Internal_Static_ApiWorldInstance_0;
-            Networking.GoToRoom($"{instance.world.id}:{instance.instanceId}");
-        }
-
-        public static void Home()
-        {
-            if (ModSettings.forceGoHome)
-                GoHome();
-            else
-                GameObject.Find("UserInterface/QuickMenu/ShortcutMenu/GoHomeButton").GetComponent<Button>().onClick.Invoke();
-        }
-
-        public static void ResetAvatar()
-        {
-            //TODO: Pick your own avatar for reset
-            ObjectPublicAbstractSealedApObApStApApUnique.Method_Public_Static_Void_ApiAvatar_String_ApiAvatar_0(API.Fetch<ApiAvatar>("avtr_c38a1615-5bf5-42b4-84eb-a8b6c37cbd11"), "fallbackAvatar");
-        }
     }
 }
