@@ -11,7 +11,7 @@ using VRC;
 using Main = ActionMenuUtils.Main;
 
 [assembly: MelonGame("VRChat", "VRChat")]
-[assembly: MelonInfo(typeof(Main), "ActionMenuUtils", "2.0.0", "gompo", "https://github.com/gompoc/VRChatMods/releases/")]
+[assembly: MelonInfo(typeof(Main), "ActionMenuUtils", "2.0.1", "gompo", "https://github.com/gompoc/VRChatMods/releases/")]
 [assembly: VerifyLoaderVersion(0, 4, 3, true)]
 [assembly: ModJsonInfo(
         140, 
@@ -71,14 +71,14 @@ namespace ActionMenuUtils
             SetupAMAPIButtons();
             SetupUIXButtons();
         }
-
+        
         private static void SetupUIXButtons()
         {
             ExpansionKitApi.GetExpandedMenu(ExpandedMenu.AvatarMenu).AddSimpleButton("Set as reset avatar for ActionMenuUtils", 
                 () =>
                 {
                     var avatarId = GameObject.Find("UserInterface/MenuContent/Screens/Avatar/AvatarPreviewBase/MainRoot/MainModel").GetComponent<SimpleAvatarPedestal>().field_Internal_ApiAvatar_0.id;
-                    var fallbackAvatarId =GameObject.Find("UserInterface/MenuContent/Screens/Avatar/AvatarPreviewBase/FallbackRoot/FallbackModel").GetComponent<SimpleAvatarPedestal>().field_Internal_ApiAvatar_0.id;
+                    var fallbackAvatarId = GameObject.Find("UserInterface/MenuContent/Screens/Avatar/AvatarPreviewBase/FallbackRoot/FallbackModel").GetComponent<SimpleAvatarPedestal>().field_Internal_ApiAvatar_0?.id;
                     ModSettings.customAvatarId = avatarId;
                     ModSettings.fallbackAvatarId = fallbackAvatarId;
                     ModSettings.Save();

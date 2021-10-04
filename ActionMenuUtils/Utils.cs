@@ -67,16 +67,25 @@ namespace ActionMenuUtils
             //TODO: Pick your own avatar for reset
             if (ModSettings.enableCustomAvatarReset)
             {
-                if (!IsValidAvatarId(ModSettings.customAvatarId) || !IsValidAvatarId(ModSettings.fallbackAvatarId))
+                ApiAvatar avatar = null;
+                ApiAvatar fallbackAvatar = null;
+
+                if (IsValidAvatarId(ModSettings.customAvatarId))
+                {
+                    avatar = API.Fetch<ApiAvatar>(ModSettings.customAvatarId);
+                }
+                else
                 {
                     SwitchToRobot(true);
                     return;
                 }
 
-                var avatar = API.Fetch<ApiAvatar>(ModSettings.customAvatarId);
-                var fallbackAvatar = API.Fetch<ApiAvatar>(ModSettings.fallbackAvatarId);
+                if (IsValidAvatarId(ModSettings.fallbackAvatarId))
+                {
+                    fallbackAvatar = API.Fetch<ApiAvatar>(ModSettings.fallbackAvatarId);
+                }
 
-                if (avatar is null || fallbackAvatar is null)
+                if (avatar is null)
                 {
                     SwitchToRobot();
                     return;
@@ -90,11 +99,11 @@ namespace ActionMenuUtils
             }
         }
 
-        private static void SwitchToRobot(bool valuesWereNull = false)
+        private static void SwitchToRobot(bool invalidId = false)
         {
             if (ModSettings.enableCustomAvatarReset)
             {
-                MelonLogger.Warning(valuesWereNull
+                MelonLogger.Warning(invalidId
                     ? "Couldn't switch to selected custom avatar. Make sure to select one first using the uix button on the left of the avatar page."
                     : "Couldn't switch to selected custom avatar. This likely means that the avatar you had selected before is no longer available.");
             }

@@ -51,7 +51,7 @@ namespace ActionMenuUtils
             customAvatarId = CustomAvatarId.Value;
             fallbackAvatarId = FallbackAvatarId.Value;
             
-            if(Main.UIXAvatarMenuButton is {}) 
+            if(Main.UIXAvatarMenuButton is not null) 
                 Main.UIXAvatarMenuButton.active = enableCustomAvatarReset;
         }
 

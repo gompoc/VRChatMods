@@ -7,7 +7,8 @@ using VRC.Core;
 
 namespace StandaloneThirdPerson
 {
-    public static class Utils
+    [PatchShield]
+    internal static class Utils
     {
         public static bool IsBigMenuOpen()
         {

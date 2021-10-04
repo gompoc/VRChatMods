@@ -8,7 +8,7 @@ using UnityEngine.XR;
 using Main = StandaloneThirdPerson.Main;
 
 [assembly: MelonGame("VRChat", "VRChat")]
-[assembly: MelonInfo(typeof(Main), "StandaloneThirdPerson", "1.3.0", "gompo & ljoonal", "https://github.com/gompoc/VRChatMods/releases/")]
+[assembly: MelonInfo(typeof(Main), "StandaloneThirdPerson", "1.3.1", "gompo & ljoonal", "https://github.com/gompoc/VRChatMods/releases/")]
 [assembly: ModJsonInfo(
         242, 
     "A simple standalone third person mod\n" +
