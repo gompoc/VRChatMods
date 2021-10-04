@@ -11,7 +11,7 @@ using VRC;
 using Main = ActionMenuUtils.Main;
 
 [assembly: MelonGame("VRChat", "VRChat")]
-[assembly: MelonInfo(typeof(Main), "ActionMenuUtils", "2.0.1", "gompo", "https://github.com/gompoc/VRChatMods/releases/")]
+[assembly: MelonInfo(typeof(Main), "ActionMenuUtils", "2.0.2", "gompo", "https://github.com/gompoc/VRChatMods/releases/")]
 [assembly: VerifyLoaderVersion(0, 4, 3, true)]
 [assembly: ModJsonInfo(
         140, 
@@ -74,7 +74,7 @@ namespace ActionMenuUtils
         
         private static void SetupUIXButtons()
         {
-            ExpansionKitApi.GetExpandedMenu(ExpandedMenu.AvatarMenu).AddSimpleButton("Set as reset avatar for ActionMenuUtils", 
+            ExpansionKitApi.GetExpandedMenu(ExpandedMenu.AvatarMenu).AddSimpleButton("Set AMU Reset Avatar", 
                 () =>
                 {
                     var avatarId = GameObject.Find("UserInterface/MenuContent/Screens/Avatar/AvatarPreviewBase/MainRoot/MainModel").GetComponent<SimpleAvatarPedestal>().field_Internal_ApiAvatar_0.id;

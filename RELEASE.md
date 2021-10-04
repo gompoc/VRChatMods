@@ -1,2 +1,2 @@
-### ActionMenuUtils v2.0.1
-- Fixed exception being thrown when selecting an avatar
+### ActionMenuUtils v2.0.2
+- Change text on uix button to fit it better

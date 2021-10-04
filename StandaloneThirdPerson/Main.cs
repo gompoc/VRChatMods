@@ -18,9 +18,7 @@ using Main = StandaloneThirdPerson.Main;
     "- Has a \"freecam\". Keybind needs to be set first to use. You can use arrow keys to look up/down/left/right and I/J/K/L to move the camera", 
     new []{"Third person", "freecam", "freeview", "camera"}, 
     null, 
-    "- Fixed issue with mod not showing when not launching through steam (--no-vr)\n"+
-    "- Added secondary keybinds for third person toggle and freeform toggle, you can leave these as `None` or set them to `LeftControl` for example\n"+
-    "- Added a setting to enable/disable freeform", 
+    null, 
     "#2ad9f7"
     )
 ]
