@@ -2,8 +2,10 @@
 using ActionMenuApi.Helpers;
 using ActionMenuApi.Types;
 using MelonLoader;
+using UnhollowerBaseLib;
 using UnityEngine;
 using UnityEngine.XR;
+using VRC.SDK3.Avatars.ScriptableObjects;
 
 namespace ActionMenuApi.Managers
 {
@@ -23,11 +25,11 @@ namespace ActionMenuApi.Managers
         public static void Setup()
         {
             radialPuppetMenuLeft = Utilities
-                .CloneGameObject("UserInterface/ActionMenu/MenuL/ActionMenu/RadialPuppetMenu",
-                    "UserInterface/ActionMenu/MenuL/ActionMenu").GetComponent<RadialPuppetMenu>();
+                .CloneGameObject("UserInterface/ActionMenu/Container/MenuL/ActionMenu/RadialPuppetMenu",
+                    "UserInterface/ActionMenu/Container/MenuL/ActionMenu").GetComponent<RadialPuppetMenu>();
             radialPuppetMenuRight = Utilities
-                .CloneGameObject("UserInterface/ActionMenu/MenuR/ActionMenu/RadialPuppetMenu",
-                    "UserInterface/ActionMenu/MenuR/ActionMenu").GetComponent<RadialPuppetMenu>();
+                .CloneGameObject("UserInterface/ActionMenu/Container/MenuR/ActionMenu/RadialPuppetMenu",
+                    "UserInterface/ActionMenu/Container/MenuR/ActionMenu").GetComponent<RadialPuppetMenu>();
         }
 
         public static void OnUpdate()
@@ -54,7 +56,7 @@ namespace ActionMenuApi.Managers
                         }
                     }
                 }
-                else if (Input.GetMouseButton(0))
+                else if (Input.GetMouseButtonUp(0))
                 {
                     CloseRadialMenu();
                     return;
@@ -65,8 +67,7 @@ namespace ActionMenuApi.Managers
             }
         }
 
-        public static void OpenRadialMenu(float startingValue, Action<float> onUpdate, string title,
-            PedalOption pedalOption, bool restricted = false)
+        public static void OpenRadialMenu(float startingValue, Action<float> onUpdate, string title, PedalOption pedalOption, bool restricted = false)
         {
             if (open) return;
             switch (Utilities.GetActionMenuHand())
@@ -83,22 +84,26 @@ namespace ActionMenuApi.Managers
                     hand = ActionMenuHand.Right;
                     open = true;
                     break;
+                   
             }
 
             RadialPuppetManager.restricted = restricted;
             Input.ResetInputAxes();
+            InputManager.ResetMousePos();
             current.gameObject.SetActive(true);
             current.GetFill().SetFillAngle(startingValue * 360); //Please dont break
             RadialPuppetManager.onUpdate = onUpdate;
             currentValue = startingValue;
+            
             current.GetTitle().text = title;
             current.GetCenterText().text = $"{Mathf.Round(startingValue * 100f)}%";
             current.GetFill().UpdateGeometry();
-            ;
-            current.transform.localPosition =
-                pedalOption.GetActionButton().transform.localPosition; //new Vector3(-256f, 0, 0); 
+            current.transform.localPosition = pedalOption.GetActionButton().transform.localPosition; //new Vector3(-256f, 0, 0); 
             var angleOriginal = Utilities.ConvertFromEuler(startingValue * 360);
             var eulerAngle = Utilities.ConvertFromDegToEuler(angleOriginal);
+            var actionMenu = Utilities.GetActionMenuOpener().GetActionMenu();
+            actionMenu.DisableInput();
+            actionMenu.SetMainMenuOpacity(0.5f);
             current.UpdateArrow(angleOriginal, eulerAngle);
         }
 
@@ -110,6 +115,9 @@ namespace ActionMenuApi.Managers
             current = null;
             open = false;
             hand = ActionMenuHand.Invalid;
+            var actionMenu = Utilities.GetActionMenuOpener().GetActionMenu();
+            actionMenu.EnableInput();
+            actionMenu.SetMainMenuOpacity();
         }
 
         private static void CallUpdateAction()
@@ -126,9 +134,7 @@ namespace ActionMenuApi.Managers
 
         private static void UpdateMathStuff()
         {
-            var mousePos = hand == ActionMenuHand.Left
-                ? Utilities.GetCursorPosLeft()
-                : Utilities.GetCursorPosRight();
+            var mousePos = hand == ActionMenuHand.Left ? InputManager.LeftInput : InputManager.RightInput;
             radialPuppetMenuRight.GetCursor().transform.localPosition = mousePos * 4;
 
             if (Vector2.Distance(mousePos, Vector2.zero) > 12)

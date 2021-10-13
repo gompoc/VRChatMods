@@ -9,7 +9,6 @@ using UnityEngine;
 
 [assembly: MelonInfo(typeof(ActionMenuTestMod.ActionMenuTestMod), "ActionMenuTestMod", "1.0.0", "gompo")]
 [assembly: MelonGame("VRChat", "VRChat")]
-[assembly: VerifyLoaderVersion(0, 4, 3, true)]
 
 namespace ActionMenuTestMod
 {

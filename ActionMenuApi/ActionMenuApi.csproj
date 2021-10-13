@@ -2,8 +2,8 @@
     <PropertyGroup>
         <TargetFramework>net472</TargetFramework>
         <VrcReferences>true</VrcReferences>
-        <Version>0.3.3.0</Version>
-        <LangVersion>9</LangVersion>
+        <Version>0.3.5.0</Version>
+        <LangVersion>10</LangVersion>
         <CopyToMods>true</CopyToMods>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <GenerateJson>true</GenerateJson>

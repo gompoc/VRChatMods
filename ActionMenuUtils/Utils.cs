@@ -64,7 +64,6 @@ namespace ActionMenuUtils
 
         public static void ResetAvatar()
         {
-            //TODO: Pick your own avatar for reset
             if (ModSettings.enableCustomAvatarReset)
             {
                 ApiAvatar avatar = null;

@@ -3,9 +3,8 @@ using ModJsonGenerator;
 using UIExpansionKit.API;
 using WorldPredownload.UI;
 
-[assembly: MelonInfo(typeof(WorldPredownload.WorldPredownload), "WorldPredownload", "1.6.2", "gompo", "https://github.com/gompoc/VRChatMods/releases/")]
+[assembly: MelonInfo(typeof(WorldPredownload.WorldPredownload), "WorldPredownload", "1.6.3", "gompo", "https://github.com/gompoc/VRChatMods/releases/")]
 [assembly: MelonGame("VRChat", "VRChat")]
-[assembly: VerifyLoaderVersion(0, 4, 3, true)]
 [assembly: ModJsonInfo(
         141,
         "-Lets you predownload worlds from the world info page, friend info page and in the more options tab for invites notifications\n" +
@@ -16,7 +15,7 @@ using WorldPredownload.UI;
         "-Options to follow predownloads configurable via UIX too",
         new []{"world", "download", "preload", "predownload"},
         new []{"[UIExpansionKit](https://api.vrcmg.com/v0/mods/55/UIExpansionKit.dll)"},
-        null,
+        "Fix crap for ui update",
         "#2ad9f7"
     )
 ]
@@ -36,10 +35,11 @@ namespace WorldPredownload
             ModSettings.LoadSettings();
             SocialMenuSetup.Patch();
             WorldInfoSetup.Patch();
-            NotificationMoreActions.Patch();
+            //NotificationMoreActions.Patch();
             ExpansionKitApi.OnUiManagerInit += UiManagerInit;
         }
-
+        
+        
         private void UiManagerInit()
         {
             if (string.IsNullOrEmpty(ID)) return;

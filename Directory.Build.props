@@ -197,6 +197,12 @@
             <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\VRCSDK2.dll</HintPath>
             <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\VRCSDK2.dll</HintPath>
         </Reference>
+        <Reference Include="VRCSDK3A, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <SpecificVersion>false</SpecificVersion>
+            <Private>false</Private>
+            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\VRCSDK3A.dll</HintPath>
+            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\VRCSDK3A.dll</HintPath>
+        </Reference>
         <Reference Include="VRCSDKBase, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>

@@ -1,8 +1,10 @@
 using System;
 using ActionMenuApi.Helpers;
 using ActionMenuApi.Managers;
+using MelonLoader;
 using UnityEngine;
-using PedalOptionTriggerEvent = PedalOption.MulticastDelegateNPublicSealedBoUnique; //Will this change?, ¯\_(ツ)_/¯
+using VRC.SDK3.Avatars.ScriptableObjects;
+
 // ReSharper disable HeuristicUnreachableCode
 
 namespace ActionMenuApi.Api

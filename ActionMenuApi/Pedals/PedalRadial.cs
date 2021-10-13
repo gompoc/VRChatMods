@@ -3,7 +3,6 @@ using ActionMenuApi.Helpers;
 using ActionMenuApi.Managers;
 using ActionMenuApi.Types;
 using UnityEngine;
-using PedalOptionTriggerEvent = PedalOption.MulticastDelegateNPublicSealedBoUnique;
 
 namespace ActionMenuApi.Pedals
 {

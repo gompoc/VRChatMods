@@ -22,7 +22,7 @@ namespace StandaloneThirdPerson
             var worldId = RoomManager.field_Internal_Static_ApiWorld_0.id;
 
             // Check if black/whitelisted from EmmVRC - thanks Emilia and the rest of EmmVRC Staff
-            var uwr = UnityWebRequest.Get($"https://dl.emmvrc.com/riskyfuncs.php?worldid=   {worldId}");
+            var uwr = UnityWebRequest.Get($"https://dl.emmvrc.com/riskyfuncs.php?worldid={worldId}");
             uwr.SendWebRequest();
             while (!uwr.isDone)
                 yield return new WaitForEndOfFrame();
@@ -39,6 +39,7 @@ namespace StandaloneThirdPerson
                         Main.Allowed = false;
                         yield break;
                 }
+            
 
 
             // no result from server or they're currently down

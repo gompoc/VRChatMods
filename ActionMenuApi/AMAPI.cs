@@ -3,7 +3,6 @@ using ActionMenuApi.Api;
 using ActionMenuApi.Pedals;
 using ActionMenuApi.Types;
 using UnityEngine;
-using PedalOptionTriggerEvent = PedalOption.MulticastDelegateNPublicSealedBoUnique; //Will this change?, ¯\_(ツ)_/¯
 // ReSharper disable HeuristicUnreachableCode
 #pragma warning disable 1591
 

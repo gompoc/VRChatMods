@@ -17,7 +17,8 @@ namespace WorldPredownload.Helpers
             button.onClick = new Button.ButtonClickedEvent();
             button.onClick.AddListener(action);
         }
-
+        
+        
         public static void SetButtonAction(this GameObject gameObject, Action action)
         {
             gameObject.GetComponent<Button>().SetAction(action);
@@ -47,6 +48,7 @@ namespace WorldPredownload.Helpers
         {
             return gameObject.GetComponent<RectTransform>();
         }
+        
 
         public static void SetAnchoredPos(this RectTransform transform, Vector2 pos)
         {
@@ -87,5 +89,6 @@ namespace WorldPredownload.Helpers
         {
             Delegates.GetLoadUserDelegate(pageUserInfo, apiUser);
         }
+
     }
 }

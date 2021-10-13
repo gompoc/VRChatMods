@@ -69,6 +69,7 @@ namespace IntegrityCheckWeaver
             "CheckA",
             "CheckB",
             "CheckC",
+            "CheckD",
             "PatchTest",
             "ReturnFalse",
             "CheckWasSuccessful",

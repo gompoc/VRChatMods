@@ -10,6 +10,7 @@ using UnhollowerRuntimeLib.XrefScans;
 using UnityEngine;
 using UnityEngine.XR;
 using Object = UnityEngine.Object;
+using Vector2 = System.Numerics.Vector2;
 
 namespace ActionMenuApi.Helpers
 {
@@ -23,7 +24,7 @@ namespace ActionMenuApi.Helpers
             {
                 //Build 1121 menu.Method_Private_Void_PDM_11)
                 if (refreshAMDelegate != null) return refreshAMDelegate;
-                var refreshAMMethod = typeof(ActionMenu).GetMethods().Last(
+                var refreshAMMethod = typeof(ActionMenu).GetMethods().First(
                     m =>
                         m.Name.StartsWith("Method_Private_Void_PDM_")
                         && !m.HasStringLiterals()
@@ -141,22 +142,6 @@ namespace ActionMenuApi.Helpers
             return 0;
         }
 
-        public static Vector2 GetCursorPosLeft()
-        {
-            if (XRDevice.isPresent)
-                return new Vector2(Input.GetAxis(Constants.LEFT_HORIZONTAL), Input.GetAxis(Constants.LEFT_VERTICAL)) *
-                       16;
-            return ActionMenuDriver.prop_ActionMenuDriver_0.GetLeftOpener().GetActionMenu().GetCursorPos();
-        }
-
-        public static Vector2 GetCursorPosRight()
-        {
-            if (XRDevice.isPresent)
-                return new Vector2(Input.GetAxis(Constants.RIGHT_HORIZONTAL), Input.GetAxis(Constants.RIGHT_VERTICAL)) *
-                       16;
-            return ActionMenuDriver.prop_ActionMenuDriver_0.GetRightOpener().GetActionMenu().GetCursorPos();
-        }
-
         public static GameObject CloneGameObject(string pathToGameObject, string pathToParent)
         {
             return Object
@@ -269,9 +254,26 @@ namespace ActionMenuApi.Helpers
             }
 
             var leftOpener = ActionMenuDriver.prop_ActionMenuDriver_0.GetLeftOpener();
-            if (leftOpener.isOpen()) leftOpener.GetActionMenu().ResetMenu();
+            if (leftOpener.isOpen())
+            {
+                leftOpener.GetActionMenu().Reset();
+                //leftOpener.GetActionMenu().ResetMenu();
+            }
             var rightOpener = ActionMenuDriver.prop_ActionMenuDriver_0.GetRightOpener();
-            if (rightOpener.isOpen()) rightOpener.GetActionMenu().ResetMenu();
+            if (rightOpener.isOpen())
+            {
+                rightOpener.GetActionMenu().Reset();
+                //rightOpener.GetActionMenu().ResetMenu();
+            }
+        }
+        
+        public static (double x1, double y1, double x2, double y2) GetIntersection(float x, float y, float r)
+        {
+            var tmp = Math.Pow(y / x, 2);
+            var c4 = -Math.Pow(r, 2)*-4;
+            var x1 = Math.Sqrt(c4 + c4*tmp) / (2+2*tmp);
+            var x2 = -x1;
+            return (x1, x1 * (y / x), x2, x2 * (y / x));
         }
 
         private delegate void RefreshAMDelegate(ActionMenu actionMenu);

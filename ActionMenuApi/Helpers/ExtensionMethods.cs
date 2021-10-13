@@ -8,8 +8,7 @@ using TMPro;
 using UnhollowerRuntimeLib;
 using UnhollowerRuntimeLib.XrefScans;
 using UnityEngine;
-using PedalOptionTriggerEvent = PedalOption.MulticastDelegateNPublicSealedBoUnique; //Will this change?, ¯\_(ツ)_/¯
-using ActionMenuPage = ActionMenu.ObjectNPublicAcTeAcStGaUnique; //Will this change?, ¯\_(ツ)_/¯x2
+using ActionMenuPage = ActionMenu.Page; //Will this change?, ¯\_(ツ)_/¯x2
 using Object = UnityEngine.Object;
 
 namespace ActionMenuApi.Helpers
@@ -152,7 +151,7 @@ namespace ActionMenuApi.Helpers
                         m.Name.StartsWith("Method_Private_Void_ObjectNPublicAcTeAcStGaUnique_")
                         && m.GetParameters().Length == 1
                         && !m.Name.Contains("PDM")
-                        && !m.HasStringLiterals()
+                        && m.CheckStringsCount(1)
                 );
                 destroyPageDelegate = (DestroyPageDelegate) Delegate.CreateDelegate(
                     typeof(DestroyPageDelegate),
@@ -226,29 +225,31 @@ namespace ActionMenuApi.Helpers
             return pedalOption.field_Public_ActionButton_0; //only one
         }
 
-        public static void SetPedalTriggerEvent(this PedalOption pedalOption, PedalOptionTriggerEvent triggerEvent)
+        private static void SetPedalTriggerEvent(this PedalOption pedalOption, Func<bool> triggerEvent)
         {
-            pedalOption.field_Public_MulticastDelegateNPublicSealedBoUnique_0 = triggerEvent; //only one
+            pedalOption.field_Public_Func_1_Boolean_0 = triggerEvent;
         }
-
+        
         public static void SetPedalAction(this PedalOption pedalOption, Action action)
         {
-            pedalOption.field_Public_MulticastDelegateNPublicSealedBoUnique_0 =
-                DelegateSupport.ConvertDelegate<PedalOptionTriggerEvent>(action);
+            pedalOption.SetPedalTriggerEvent(delegate
+            {
+                action();
+                return true;
+            });
         }
 
         public static ActionMenuOpener GetLeftOpener(this ActionMenuDriver actionMenuDriver)
         {
-            if (actionMenuDriver.field_Public_ActionMenuOpener_0.field_Public_EnumNPublicSealedvaLeRi3vUnique_0 ==
-                ActionMenuOpener.EnumNPublicSealedvaLeRi3vUnique.Left)
+            if (actionMenuDriver.field_Public_ActionMenuOpener_0.field_Public_Hand_0 ==
+                ActionMenuOpener.Hand.Left)
                 return actionMenuDriver.field_Public_ActionMenuOpener_0;
             return actionMenuDriver.field_Public_ActionMenuOpener_1;
         }
 
         public static ActionMenuOpener GetRightOpener(this ActionMenuDriver actionMenuDriver)
         {
-            if (actionMenuDriver.field_Public_ActionMenuOpener_1.field_Public_EnumNPublicSealedvaLeRi3vUnique_0 ==
-                ActionMenuOpener.EnumNPublicSealedvaLeRi3vUnique.Right)
+            if (actionMenuDriver.field_Public_ActionMenuOpener_1.field_Public_Hand_0 == ActionMenuOpener.Hand.Right)
                 return actionMenuDriver.field_Public_ActionMenuOpener_1;
             return actionMenuDriver.field_Public_ActionMenuOpener_0;
         }
@@ -269,7 +270,7 @@ namespace ActionMenuApi.Helpers
                     p => p.PropertyType == typeof(GameObject) &&
                          ((GameObject) p.GetValue(radialPuppetMenu)).name.Equals("Cursor")
                 );
-            getRadialCursorGameObjectDelegate = getRadialCursorGameObjectDelegate =
+            getRadialCursorGameObjectDelegate =
                 (Func<RadialPuppetMenu, GameObject>) Delegate.CreateDelegate(typeof(Func<RadialPuppetMenu, GameObject>),
                     radialPuppetCursorProperty.GetGetMethod());
             return getRadialCursorGameObjectDelegate(radialPuppetMenu);
@@ -290,7 +291,7 @@ namespace ActionMenuApi.Helpers
                     p => p.PropertyType == typeof(GameObject) &&
                          ((GameObject) p.GetValue(axisPuppetMenu)).name.Equals("Cursor")
                 );
-            getAxisCursorGameObjectDelegate = getAxisCursorGameObjectDelegate =
+            getAxisCursorGameObjectDelegate =
                 (Func<AxisPuppetMenu, GameObject>) Delegate.CreateDelegate(typeof(Func<AxisPuppetMenu, GameObject>),
                     axisPuppetCursorProperty.GetGetMethod());
             return getAxisCursorGameObjectDelegate(axisPuppetMenu);
@@ -312,7 +313,7 @@ namespace ActionMenuApi.Helpers
                     p => p.PropertyType == typeof(GameObject) &&
                          ((GameObject) p.GetValue(radialPuppetMenu)).name.Equals("Arrow")
                 );
-            getRadialArrowGameObjectDelegate = getRadialArrowGameObjectDelegate =
+            getRadialArrowGameObjectDelegate =
                 (Func<RadialPuppetMenu, GameObject>) Delegate.CreateDelegate(typeof(Func<RadialPuppetMenu, GameObject>),
                     radialPuppetArrowProperty.GetGetMethod());
             return getRadialArrowGameObjectDelegate(radialPuppetMenu);
@@ -563,10 +564,10 @@ namespace ActionMenuApi.Helpers
             RadialPuppetManager.CloseRadialMenu();
             FourAxisPuppetManager.CloseFourAxisMenu();
             actionMenu.ClosePuppetMenus(true);
-            for (var i = 0; i < actionMenu.field_Private_List_1_ObjectNPublicAcTeAcStGaUnique_0._items.Count; i++)
-                actionMenu.DestroyPage(actionMenu.field_Private_List_1_ObjectNPublicAcTeAcStGaUnique_0._items[i]);
-            actionMenu.field_Private_List_1_ObjectNPublicAcTeAcStGaUnique_0?.Clear();
-            actionMenu.field_Public_List_1_ObjectNPublicPaSiAcObUnique_0?.Clear();
+            for (var i = 0; i < actionMenu.field_Private_List_1_Page_0.Count; i++)
+                actionMenu.DestroyPage(actionMenu.field_Private_List_1_Page_0._items[i]);
+            actionMenu.field_Private_List_1_Page_0?.Clear();
+            //actionMenu.field_Public_List_1_ObjectNPublicPaSiAcObUnique_0?.Clear();
         }
 
         public static List<List<T>> Split<T>(this List<T> ourList, int chunkSize)
@@ -703,6 +704,35 @@ namespace ActionMenuApi.Helpers
         public static float GetFillAngle(this PedalGraphic pedalGraphic)
         {
             return pedalGraphic.field_Public_Single_3;
+        }
+
+
+        private static PropertyInfo mainCanvasGroupProperty;
+        private static Func<ActionMenu, CanvasGroup> getActionMenuMainMenuCanvasGroup;
+        private static CanvasGroup GetMainMenuCanvas(this ActionMenu actionMenu) 
+        {
+            if (mainCanvasGroupProperty != null)
+                return getActionMenuMainMenuCanvasGroup(actionMenu);
+
+            mainCanvasGroupProperty = typeof(ActionMenu).GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
+                .Single(p => p.PropertyType == typeof(CanvasGroup) && ((CanvasGroup) p.GetValue(actionMenu)).gameObject.name.Equals("Main"));
+            getActionMenuMainMenuCanvasGroup = (Func<ActionMenu, CanvasGroup>) Delegate.CreateDelegate(typeof(Func<ActionMenu, CanvasGroup>), mainCanvasGroupProperty.GetGetMethod());
+            return getActionMenuMainMenuCanvasGroup(actionMenu);
+        }
+
+        public static void SetMainMenuOpacity(this ActionMenu actionMenu, float opacity = 1.0f)
+        {
+            GetMainMenuCanvas(actionMenu).alpha = opacity;
+        }
+
+        public static void DisableInput(this ActionMenu actionMenu)
+        {
+            actionMenu.field_Private_Boolean_3 = false;
+        }
+
+        public static void EnableInput(this ActionMenu actionMenu)
+        {
+            actionMenu.field_Private_Boolean_3 = true;
         }
 
         public static Vector2 GetCursorPos(this ActionMenu actionMenu)

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using HarmonyLib;
 using MelonLoader;
-using Transmtn;
 using Transmtn.DTO.Notifications;
 using UnhollowerBaseLib;
 using UnhollowerBaseLib.Attributes;
@@ -15,8 +13,7 @@ using WorldPredownload.Cache;
 using WorldPredownload.DownloadManager;
 using WorldPredownload.Helpers;
 using WorldPredownload.UI;
-using InfoType = VRC.UI.PageUserInfo.EnumNPublicSealedvaNoOnOfSeReBlInFa10Unique;
-using ListType = UiUserList.EnumNPublicSealedvaNoInFrOnOfSeInFa9vUnique;
+
 
 namespace WorldPredownload
 {
@@ -129,8 +126,8 @@ namespace WorldPredownload
                         m => m.ReturnType == typeof(void)
                              && m.GetParameters().Length == 3
                              && m.GetParameters()[0].ParameterType == typeof(APIUser)
-                             && m.GetParameters()[1].ParameterType == typeof(InfoType)
-                             && m.GetParameters()[2].ParameterType == typeof(ListType)
+                             && m.GetParameters()[1].ParameterType == typeof(PageUserInfo.InfoType)
+                             && m.GetParameters()[2].ParameterType == typeof(UiUserList.ListType)
                              && !m.Name.Contains("PDM")
                     ).OrderBy(m => m.GetCustomAttribute<CallerCountAttribute>().Count)
                     .Last(),
