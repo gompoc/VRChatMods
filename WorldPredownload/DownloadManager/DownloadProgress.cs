@@ -16,7 +16,7 @@ namespace WorldPredownload.DownloadManager
             await TaskUtilities.YieldToMainThread();
             if (!Downloading) return;
             var text = $"Progress:{args.ProgressPercentage} %";
-            if (ModSettings.showStatusOnQM) WorldDownloadStatus.GameObject.SetText(text);
+            //if (ModSettings.showStatusOnQM) WorldDownloadStatus.GameObject.SetText(text);
             //if (InviteButton.CanChangeText) InviteButton.Button.SetText(text);
             if (FriendButton.CanChangeText) FriendButton.Button.SetText(text);
             if (WorldButton.CanChangeText) WorldButton.Button.SetText(text);

@@ -46,7 +46,7 @@ namespace WorldPredownload
             InviteButton.Setup();
             FriendButton.Setup();
             WorldButton.Setup();
-            WorldDownloadStatus.Setup();
+            //WorldDownloadStatus.Setup();
             HudIcon.Setup();
         }
 

@@ -43,14 +43,15 @@ namespace StandaloneThirdPerson
                 yield return new WaitForEndOfFrame();
             if (XRDevice.isPresent)
                 yield break;
+            ModSettings.RegisterSettings();
+            ModSettings.LoadSettings();
+            while (GameObject.Find("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/MicButton") == null)
+                yield return null;
             OnUIInit();
         }
 
         private static void OnUIInit()
         {
-            ModSettings.RegisterSettings();
-            ModSettings.LoadSettings();
-            
             vrcCamera = GameObject.Find("Camera (eye)")?.GetComponent<Camera>();
 
             if (vrcCamera == null)
@@ -66,7 +67,7 @@ namespace StandaloneThirdPerson
             thirdPersonCamera.enabled = false;
             thirdPersonCamera.transform.parent = originalCameraTransform.parent;
 
-            GameObject.Find("UserInterface/QuickMenu/MicControls").AddComponent<QMEnableDisableListener>();
+            GameObject.Find("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/MicButton").AddComponent<QMEnableDisableListener>();
 
             initialised = true;
         }

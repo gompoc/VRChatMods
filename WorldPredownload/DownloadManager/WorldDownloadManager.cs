@@ -54,7 +54,7 @@ namespace WorldPredownload.DownloadManager
                 new Action(delegate
                 {
                     Utilities.HideCurrentPopup();
-                    GameObject.Find("UserInterface/QuickMenu/ShortcutMenu/WorldsButton").GetComponent<Button>().onClick
+                    GameObject.Find("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickLinks/Button_Worlds").GetComponent<Button>().onClick
                         .Invoke();
                     Utilities.ShowPage(DownloadInfo.PageWorldInfo!);
 
@@ -101,7 +101,7 @@ namespace WorldPredownload.DownloadManager
                 new Action(delegate
                 {
                     Utilities.HideCurrentPopup();
-                    GameObject.Find("UserInterface/QuickMenu/ShortcutMenu/SocialButton").GetComponent<Button>().onClick
+                    GameObject.Find("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickLinks/Button_Social").GetComponent<Button>().onClick
                         .Invoke();
                     _ = DownloadInfo.APIUser ?? throw new NullReferenceException("Friend User Info Null Uh Oh");
                     Utilities.ShowPage(DownloadInfo.PageUserInfo!);

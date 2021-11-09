@@ -15,6 +15,7 @@ namespace WorldPredownload.UI
 
         public static void Setup()
         {
+            return;
             GameObject = Utilities.CloneGameObject(PATH_TO_GAMEOBJECT_TO_CLONE, PATH_TO_CLONE_PARENT);
             GameObject.GetRectTrans().SetAnchoredPos(Constants.DwldStatusPos);
             if (ModSettings.showStatusOnQM && !ModSettings.hideQMStatusWhenInActive) GameObject.SetActive(true);
@@ -27,6 +28,7 @@ namespace WorldPredownload.UI
 
         public static void Enable()
         {
+            return;
             if (GameObject != null)
             {
                 GameObject.SetActive(true);
@@ -36,6 +38,7 @@ namespace WorldPredownload.UI
 
         public static void Disable()
         {
+            return;
             if (GameObject != null)
                 GameObject.SetActive(false);
         }

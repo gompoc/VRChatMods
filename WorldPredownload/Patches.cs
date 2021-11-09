@@ -39,7 +39,7 @@ namespace WorldPredownload
             InviteButton.UpdateTextDownloadStopped();
             FriendButton.UpdateTextDownloadStopped();
             WorldButton.UpdateTextDownloadStopped();
-            WorldDownloadStatus.GameObject.SetText(Constants.STATUS_IDLE_TEXT);
+            //WorldDownloadStatus.GameObject.SetText(Constants.STATUS_IDLE_TEXT);
         }
     }
 

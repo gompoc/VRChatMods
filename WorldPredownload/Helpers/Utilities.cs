@@ -49,7 +49,7 @@ namespace WorldPredownload.Helpers
         {
             Delegates.GetShowDismissPopupDelegate(title, body, middleButtonText, buttonAction);
         }
-
+        
 
         public static void ShowPage(VRCUiPage page)
         {

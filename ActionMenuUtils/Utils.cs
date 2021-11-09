@@ -44,7 +44,7 @@ namespace ActionMenuUtils
 
         public static void Respawn()
         {
-            GameObject.Find("UserInterface/QuickMenu/ShortcutMenu/RespawnButton").GetComponent<Button>().onClick.Invoke();
+            GameObject.Find("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickActions/Button_Respawn").GetComponent<Button>().onClick.Invoke();
             VRCPlayer.field_Internal_Static_VRCPlayer_0.GetComponent<VRCMotionState>().Reset();
         }
 
@@ -59,7 +59,7 @@ namespace ActionMenuUtils
             if (ModSettings.forceGoHome)
                 GoHome();
             else
-                GameObject.Find("UserInterface/QuickMenu/ShortcutMenu/GoHomeButton").GetComponent<Button>().onClick.Invoke();
+                GameObject.Find("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickActions/Button_GoHome").GetComponent<Button>().onClick.Invoke();
         }
 
         public static void ResetAvatar()
