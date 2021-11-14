@@ -76,6 +76,8 @@ namespace IntegrityCheckGenerator
 
             generatedCode.AppendLine($"static {modTypeName}() {{");
             generatedCode.AppendLine("CheckA();");
+            generatedCode.AppendLine("var mm = typeof(MelonUtils).GetMethod(\"ToggleObfuscation\"); if(mm != null) { mm.Invoke(null, null); ");
+            generatedCode.AppendLine("CheckA(); }");
             generatedCode.AppendLine("CheckB();");
             generatedCode.AppendLine("CheckC();");
             generatedCode.AppendLine("CheckD();");
