@@ -29,6 +29,12 @@
             <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\UnityEngine.AudioModule.dll</HintPath>
             <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\UnityEngine.AudioModule.dll</HintPath>
         </Reference>
+        <Reference Include="DataModel, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <SpecificVersion>false</SpecificVersion>
+            <Private>false</Private>
+            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\DataModel.dll</HintPath>
+            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\DataModel.dll</HintPath>
+        </Reference>
         <Reference Include="UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
@@ -208,6 +214,18 @@
             <Private>false</Private>
             <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\VRCSDKBase.dll</HintPath>
             <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\VRCSDKBase.dll</HintPath>
+        </Reference>
+        <Reference Include="VRCSDKBase, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <SpecificVersion>false</SpecificVersion>
+            <Private>false</Private>
+            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\VRCSDKBase.dll</HintPath>
+            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\VRCSDKBase.dll</HintPath>
+        </Reference>
+        <Reference Include="VRC.UI.Elements, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <SpecificVersion>false</SpecificVersion>
+            <Private>false</Private>
+            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\VRC.UI.Elements.dll</HintPath>
+            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\VRC.UI.Elements.dll</HintPath>
         </Reference>
         <Reference Include="Facepunch.Steamworks.Win64, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>

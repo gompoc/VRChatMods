@@ -37,6 +37,8 @@ namespace ActionMenuApi
         
         public override void OnApplicationStart()
         {
+            Utilities.ScanMethod(typeof(VRCUiManager).GetMethod(nameof(VRCUiManager.Method_Public_Void_Boolean_Boolean_1)));
+            Utilities.ScanMethod(typeof(VRCUiManager).GetMethod(nameof(VRCUiManager.Method_Public_Void_String_Boolean_0)));
             ResourcesManager.LoadTextures();
             MelonCoroutines.Start(WaitForActionMenuInit());
             try

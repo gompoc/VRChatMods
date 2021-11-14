@@ -4,8 +4,6 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using MelonLoader;
 using UnhollowerRuntimeLib.XrefScans;
-using UnityEngine;
-using UnityEngine.UI;
 using VRC.Animation;
 using VRC.Core;
 using VRC.SDKBase;
@@ -39,12 +37,30 @@ namespace ActionMenuUtils
 
         private static void GoHome() => GetGoHomeDelegate();
         private static GoHomeDelegate goHomeDelegate;
-
         private delegate void GoHomeDelegate();
 
+        private static RespawnDelegate GetRespawnDelegate
+        {
+            get
+            {
+                if (respawnDelegate != null) return respawnDelegate;
+                MethodInfo respawnMethod = typeof(VRCPlayer).GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly).Single(
+                    m => m.GetParameters().Length == 0 && m.ReturnType == typeof(void) && m.XRefScanFor("Respawned while not in a room."));
+
+                respawnDelegate = (RespawnDelegate)Delegate.CreateDelegate(
+                    typeof(RespawnDelegate),
+                    VRCPlayer.field_Internal_Static_VRCPlayer_0,
+                    respawnMethod);
+                return respawnDelegate;
+            }
+        }
+        
+        private static RespawnDelegate respawnDelegate;
+        private delegate void RespawnDelegate();
+        
         public static void Respawn()
         {
-            GameObject.Find("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickActions/Button_Respawn").GetComponent<Button>().onClick.Invoke();
+            GetRespawnDelegate();
             VRCPlayer.field_Internal_Static_VRCPlayer_0.GetComponent<VRCMotionState>().Reset();
         }
 
@@ -54,13 +70,13 @@ namespace ActionMenuUtils
             Networking.GoToRoom($"{instance.world.id}:{instance.instanceId}");
         }
 
-        public static void Home()
-        {
-            if (ModSettings.forceGoHome)
-                GoHome();
-            else
-                GameObject.Find("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickActions/Button_GoHome").GetComponent<Button>().onClick.Invoke();
-        }
+        public static void Home() => GetGoHomeDelegate();
+        // {
+        //     if (ModSettings.forceGoHome)
+        //         GoHome();
+        //     else
+        //         GameObject.Find("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickActions/Button_GoHome").GetComponent<Button>().onClick.Invoke();
+        // }
 
         public static void ResetAvatar()
         {

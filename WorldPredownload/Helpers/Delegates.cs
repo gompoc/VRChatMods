@@ -128,7 +128,8 @@ namespace WorldPredownload.Helpers
         {
             get
             {
-                if (advancedInvitesInviteDelegate != null) return advancedInvitesInviteDelegate;
+                if (advancedInvitesInviteDelegate != null) 
+                    return advancedInvitesInviteDelegate;
 
                 //InviteHandler
                 var handleNotificationMethod = MelonHandler.Mods.First(
@@ -144,6 +145,48 @@ namespace WorldPredownload.Helpers
                     handleNotificationMethod
                 );
                 return advancedInvitesInviteDelegate;
+            }
+        }
+
+        public delegate void OpenMenuDelegate(bool a, bool b);
+
+        private static OpenMenuDelegate openMenuDelegate;
+
+        public static OpenMenuDelegate GetOpenMenuDelegate
+        {
+            get
+            {
+                if (openMenuDelegate != null) 
+                    return openMenuDelegate;
+                
+                var openMenuMethod = typeof(VRCUiManager).GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly)
+                    .Single(m => m.GetParameters().Length == 2 && m.Name.StartsWith("Method_Public_Void_Boolean_Boolean_") && m.XRefScanFor("UserInterface/MenuContent/Screens/Worlds") && !m.Name.Contains("PDM"));
+
+                openMenuDelegate = (OpenMenuDelegate) Delegate.CreateDelegate(typeof(OpenMenuDelegate), VRCUiManager.field_Private_Static_VRCUiManager_0, openMenuMethod);
+
+                return openMenuDelegate;
+            }
+        }
+
+        public delegate void OpenMenuPageDelegate(string a, bool b);
+
+        private static OpenMenuPageDelegate openMenuPageDelegate;
+
+        public static OpenMenuPageDelegate GetOpenPageDelegate
+        {
+            get
+            {
+                if (openMenuPageDelegate != null)
+                    return openMenuPageDelegate;
+                
+
+                var openMenuPageMethod = typeof(VRCUiManager).GetMethods()
+                    .Where(m => m.Name.StartsWith("Method_Public_Void_String_Boolean_") && m.GetParameters().Length == 2).OrderBy(m => m.GetCustomAttribute<CallerCountAttribute>().Count)
+                    .Last();
+
+                openMenuPageDelegate = (OpenMenuPageDelegate) Delegate.CreateDelegate(typeof(OpenMenuPageDelegate), VRCUiManager.field_Private_Static_VRCUiManager_0, openMenuPageMethod);
+                
+                return openMenuPageDelegate;
             }
         }
     }

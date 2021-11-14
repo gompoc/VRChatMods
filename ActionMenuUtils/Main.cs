@@ -7,20 +7,17 @@ using ModJsonGenerator;
 using UIExpansionKit.API;
 using UnhollowerRuntimeLib;
 using UnityEngine;
-using UnityEngine.Video;
 using VRC;
 using Main = ActionMenuUtils.Main;
 
 [assembly: MelonGame("VRChat", "VRChat")]
-[assembly: MelonInfo(typeof(Main), "ActionMenuUtils", "2.0.3", "gompo", "https://github.com/gompoc/VRChatMods/releases/")]
+[assembly: MelonInfo(typeof(Main), "ActionMenuUtils", "2.0.4", "gompo", "https://github.com/gompoc/VRChatMods/releases/")]
 [assembly: ModJsonInfo(
         140, 
-        "Lets you respawn using the action menu\n" +
-        "Lets you go home for when respawning wont save you such as in broken worlds with no floors\n" +
-        "Additionally lets you reset avatar or rejoin instance", 
+        "Lets you respawn, go home, rejoin instance and reset you avatar to the default robot or a custom one all using the action menu", 
         new []{"action menu", "respawn", "go home", "reset avatar"}, 
         new []{"[ActionMenuApi](https://api.vrcmg.com/v0/mods/201/ActionMenuApi.dll)", "[UIExpansionKit](https://api.vrcmg.com/v0/mods/55/UIExpansionKit.dll)"}, 
-        "Fix crap for ui update", 
+        "Fixed issues with respawn and go home buttons", 
         "#2ad9f7"
         )
 ]

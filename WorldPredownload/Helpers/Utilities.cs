@@ -10,6 +10,7 @@ using UnityEngine.EventSystems;
 using VRC.Core;
 using VRC.SDKBase;
 using WorldPredownload.DownloadManager;
+using Delegate = System.Delegate;
 using Exception = System.Exception;
 using Object = UnityEngine.Object;
 
@@ -54,6 +55,18 @@ namespace WorldPredownload.Helpers
         public static void ShowPage(VRCUiPage page)
         {
             Delegates.GetPushUIPageDelegate(page);
+        }
+
+        public static void OpenWorldInfoPage()
+        {
+            Delegates.GetOpenMenuDelegate(false, true);
+            Delegates.GetOpenPageDelegate("UserInterface/MenuContent/Screens/WorldInfo", false);
+        }
+
+        public static void OpenUserInfoPage()
+        {
+            Delegates.GetOpenMenuDelegate(false, true);
+            Delegates.GetOpenPageDelegate("UserInterface/MenuContent/Screens/UserInfo", false);
         }
 
         public static AssetBundleDownloadManager GetAssetBundleDownloadManager()

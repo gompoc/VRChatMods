@@ -10,7 +10,7 @@ namespace ActionMenuUtils
         public static bool confirmGoHome { get; private set; } = false;
         public static bool confirmAvatarReset { get; private set; } = false;
         public static bool confirmInstanceRejoin { get; private set; } = true;
-        public static bool forceGoHome { get; private set; } = false;
+        //public static bool forceGoHome { get; private set; } = false;
 
         public static bool enableCustomAvatarReset { get; private set; } = false;
 
@@ -22,7 +22,7 @@ namespace ActionMenuUtils
             ConfirmGoHome,
             ConfirmAvatarReset,
             ConfirmInstanceRejoin,
-            ForceGoHome,
+            //ForceGoHome,
             EnableCustomAvatarReset;
 
         private static MelonPreferences_Entry<string> CustomAvatarId, FallbackAvatarId;
@@ -32,7 +32,7 @@ namespace ActionMenuUtils
             var category = MelonPreferences.CreateCategory(categoryName, categoryDisplayName);
             ConfirmRespawn = category.CreateEntry("ConfirmRespawn", confirmRespawn, "Add a confirmation for respawn");
             ConfirmGoHome = category.CreateEntry( "ConfirmGoHome", confirmGoHome, "Add a confirmation for go home");
-            ForceGoHome = category.CreateEntry("ForceGoHome", forceGoHome, "Skip the go home popup");
+            //ForceGoHome = category.CreateEntry("ForceGoHome", forceGoHome, "Skip the go home popup");
             ConfirmAvatarReset = category.CreateEntry("ConfirmAvatarReset", confirmAvatarReset, "Add a confirmation for avatar reset");
             ConfirmInstanceRejoin = category.CreateEntry("ConfirmInstanceReJoin", confirmInstanceRejoin, "Add a confirmation for rejoin instance");
             EnableCustomAvatarReset = category.CreateEntry("EnableCustomAvatarReset", enableCustomAvatarReset, "Use custom avatar when resetting");
@@ -44,7 +44,7 @@ namespace ActionMenuUtils
         {
             confirmRespawn = ConfirmRespawn.Value;
             confirmGoHome = ConfirmGoHome.Value;
-            forceGoHome = ForceGoHome.Value;
+            //forceGoHome = ForceGoHome.Value;
             confirmAvatarReset = ConfirmAvatarReset.Value;
             confirmInstanceRejoin = ConfirmInstanceRejoin.Value;
             enableCustomAvatarReset = EnableCustomAvatarReset.Value;

@@ -54,13 +54,8 @@ namespace WorldPredownload.DownloadManager
                 new Action(delegate
                 {
                     Utilities.HideCurrentPopup();
-                    GameObject.Find("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickLinks/Button_Worlds").GetComponent<Button>().onClick
-                        .Invoke();
-                    Utilities.ShowPage(DownloadInfo.PageWorldInfo!);
-
-                    DownloadInfo.PageWorldInfo
-                        .Method_Public_Void_ApiWorld_ApiWorldInstance_Boolean_Boolean_Boolean_APIUser_0(
-                            DownloadInfo.ApiWorld, DownloadInfo.PageWorldInfo.field_Public_ApiWorldInstance_0);
+                    Utilities.OpenWorldInfoPage();
+                    DownloadInfo.PageWorldInfo!.Method_Public_Void_ApiWorld_ApiWorldInstance_Boolean_Boolean_Boolean_APIUser_0(DownloadInfo.ApiWorld, DownloadInfo.PageWorldInfo.field_Public_ApiWorldInstance_0);
                     ClearDownload();
                 }),
                 Constants.SUCCESS_RIGHT_BTN_TEXT,
@@ -100,13 +95,10 @@ namespace WorldPredownload.DownloadManager
                 Constants.SUCCESS_LEFT_BTN_TEXT_F,
                 new Action(delegate
                 {
-                    Utilities.HideCurrentPopup();
-                    GameObject.Find("UserInterface/Canvas_QuickMenu(Clone)/Container/Window/QMParent/Menu_Dashboard/ScrollRect/Viewport/VerticalLayoutGroup/Buttons_QuickLinks/Button_Social").GetComponent<Button>().onClick
-                        .Invoke();
                     _ = DownloadInfo.APIUser ?? throw new NullReferenceException("Friend User Info Null Uh Oh");
-                    Utilities.ShowPage(DownloadInfo.PageUserInfo!);
+                    Utilities.HideCurrentPopup();
+                    Utilities.OpenUserInfoPage();
                     DownloadInfo.PageUserInfo.LoadUser(DownloadInfo.APIUser);
-                    //FriendButton.UpdateTextDownloadStopped();
                     ClearDownload();
                 }),
                 Constants.SUCCESS_RIGHT_BTN_TEXT,
