@@ -18,7 +18,9 @@ namespace WorldPredownload.DownloadManager
     [SuppressMessage("ReSharper", "HeuristicUnreachableCode")]
     public static partial class WorldDownloadManager
     {
-        private static readonly AsyncCompletedEventHandler OnComplete = async (_, args) =>
+        private static readonly AsyncCompletedEventHandler OnComplete = Complete;
+
+        private static async void Complete(object _, AsyncCompletedEventArgs args)
         {
             await TaskUtilities.YieldToMainThread();
             webClient.Dispose();
@@ -32,9 +34,7 @@ namespace WorldPredownload.DownloadManager
                 WorldButton.UpdateTextDownloadStopped();
                 //WorldDownloadStatus.GameObject.SetText(Constants.STATUS_IDLE_TEXT);
                 if (!string.IsNullOrEmpty(file)) File.Delete(file);
-                if (!args.Cancelled)
-                    MelonLogger.Error(
-                        $"World failed to download. Why you might ask?... I don't know! This exception might help: {args.Error}");
+                if (!args.Cancelled) MelonLogger.Error($"World failed to download. Why you might ask?... I don't know! This exception might help: {args.Error}");
                 return;
             }
 
@@ -44,26 +44,18 @@ namespace WorldPredownload.DownloadManager
             //     level = CompressionLevel.High,
             //     blockSize = 131072U
             // }, 0, ThreadPriority.Normal);
-            
-            var operation = AssetBundle.RecompressAssetBundleAsync_Internal(file, file, new BuildCompression
-            {
-                compression = CompressionType.Lz4,
-                level = CompressionLevel.High,
-                blockSize = 131072U
-            }, 0, ThreadPriority.Normal);
 
-            operation.add_completed(DelegateSupport.ConvertDelegate<Action<AsyncOperation>>(
-                new System.Action<AsyncOperation>(
-                    delegate
-                    {
-                        MelonLogger.Msg($"Finished recompressing world with result: {operation.result}");
-                        var task = new Task(OnRecompress);
-                        // I don't really know how else to ensure that this the recompress operation runs on the main thread, if you know feel free to bonk me for being dumb
-                        task.NoAwait("WorldPredownload OnRecompress");
-                        task.Start();
-                    }))
-            );
-        };
+            var operation = AssetBundle.RecompressAssetBundleAsync_Internal(file, file, new BuildCompression {compression = CompressionType.Lz4, level = CompressionLevel.High, blockSize = 131072U}, 0, ThreadPriority.Normal);
+
+            operation.add_completed(DelegateSupport.ConvertDelegate<Action<AsyncOperation>>(new System.Action<AsyncOperation>(delegate
+            {
+                MelonLogger.Msg($"Finished recompressing world with result: {operation.result}");
+                var task = new Task(OnRecompress);
+                // I don't really know how else to ensure that this the recompress operation runs on the main thread, if you know feel free to bonk me for being dumb
+                task.NoAwait("WorldPredownload OnRecompress");
+                task.Start();
+            })));
+        }
 
         private static async void OnRecompress()
         {

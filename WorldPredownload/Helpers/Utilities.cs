@@ -19,7 +19,7 @@ namespace WorldPredownload.Helpers
     [SuppressMessage("ReSharper", "HeuristicUnreachableCode")]
     public static class Utilities
     {
-        private static readonly Regex FileIdRegex = new("(/file_[0-9A-Za-z-]+/)", RegexOptions.Compiled);
+        private static readonly Regex FileIdRegex = new("/(file_[0-9A-Za-z-]+)/", RegexOptions.Compiled);
 
         private static readonly Regex FileVersionRegex = new("(?:\\/file_[0-9A-Za-z-]+\\/)([0-9]+)", RegexOptions.Compiled);
 
@@ -73,7 +73,7 @@ namespace WorldPredownload.Helpers
         {
             return AssetBundleDownloadManager.prop_AssetBundleDownloadManager_0;
         }
-
+        
         public static void HideCurrentPopup()
         {
             VRCUiManager.prop_VRCUiManager_0.HideScreen("POPUP");
