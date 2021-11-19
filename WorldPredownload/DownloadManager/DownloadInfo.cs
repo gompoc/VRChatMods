@@ -18,7 +18,7 @@ namespace WorldPredownload.DownloadManager
             this.InstanceIDTags = instanceIDTags;
             this.DownloadType = downloadType;
             this.PageUserInfo = pageUserInfo;
-            if (pageUserInfo != null) APIUser = pageUserInfo.field_Public_APIUser_0;
+            if (pageUserInfo != null) APIUser = pageUserInfo.field_Private_APIUser_0;
             this.PageWorldInfo = pageWorldInfo;
             this.Notification = notification;
         }

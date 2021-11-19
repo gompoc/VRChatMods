@@ -3,7 +3,7 @@ using ModJsonGenerator;
 using UIExpansionKit.API;
 using WorldPredownload.UI;
 
-[assembly: MelonInfo(typeof(WorldPredownload.WorldPredownload), "WorldPredownload", "1.6.5", "gompo", "https://github.com/gompoc/VRChatMods/releases/")]
+[assembly: MelonInfo(typeof(WorldPredownload.WorldPredownload), "WorldPredownload", "1.6.6", "gompo", "https://github.com/gompoc/VRChatMods/releases/")]
 [assembly: MelonGame("VRChat", "VRChat")]
 [assembly: ModJsonInfo(
         141,
@@ -15,7 +15,7 @@ using WorldPredownload.UI;
         "-Options to follow predownloads configurable via UIX too",
         new []{"world", "download", "preload", "predownload"},
         new []{"[UIExpansionKit](https://api.vrcmg.com/v0/mods/55/UIExpansionKit.dll)"},
-        "Compatibility fix",
+        "Compatibility fix for build 1151",
         "#2ad9f7"
     )
 ]

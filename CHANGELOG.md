@@ -1,3 +1,6 @@
+### WorldPredownload v1.6.6
+- Compatibility fix for build 1151
+
 ### WorldPredownload v1.6.5
 - *Actually downloads worlds properly now*
 
