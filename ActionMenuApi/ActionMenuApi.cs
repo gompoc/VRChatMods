@@ -7,7 +7,7 @@ using ModJsonGenerator;
 
 #pragma warning disable 1591
 
-[assembly: MelonInfo(typeof(ActionMenuApi.ActionMenuApi), "ActionMenuApi", "0.3.5", "gompo", "https://github.com/gompoc/ActionMenuApi/releases")]
+[assembly: MelonInfo(typeof(ActionMenuApi.ActionMenuApi), "ActionMenuApi", "1.0.0", "gompo", "https://github.com/gompoc/VRChatMods/releases")]
 [assembly: MelonGame("VRChat", "VRChat")]
 
 [assembly: ModJsonInfo(

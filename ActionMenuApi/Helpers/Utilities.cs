@@ -177,6 +177,8 @@ namespace ActionMenuApi.Helpers
             if (ActionMenuDriver.prop_ActionMenuDriver_0.GetLeftOpener().isOpen() &&
                 !ActionMenuDriver.prop_ActionMenuDriver_0.GetRightOpener().isOpen())
                 return ActionMenuDriver.prop_ActionMenuDriver_0.GetLeftOpener();
+            
+            
 
             return null;
             /*

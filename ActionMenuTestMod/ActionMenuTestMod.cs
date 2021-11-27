@@ -96,27 +96,10 @@ namespace ActionMenuTestMod
                 subMenuIcon,
                 false
             );
-
-            //Purely for backwards compatibility testing don't use yourself
-            AMAPI.AddModFolder(
-                "Old Cube Stuff",
-                delegate
-                {
-                    AMAPI.AddFourAxisPedalToSubMenu("Reposition cube X/Y", (v) => RePositionCubeXY(v), toggleIcon);
-                    AMAPI.AddFourAxisPedalToSubMenu("Reposition cube Z/Y", RePositionCubeZY, toggleIcon);
-                    AMAPI.AddFourAxisPedalToSubMenu("Reposition cube X/Z", RePositionCubeXZ, toggleIcon);
-                    AMAPI.AddRadialPedalToSubMenu("X",RotateCubeX, x,radialIcon); //Rotation a bit borked
-                    AMAPI.AddTogglePedalToSubMenu("Test Toggle", testBool2, (b) => testBool2 = b);
-                    AMAPI.AddRadialPedalToSubMenu("Y",RotateCubeY, y,radialIcon);
-                    AMAPI.AddRadialPedalToSubMenu("Z",RotateCubeZ, z,radialIcon);
-                    AMAPI.AddButtonPedalToSubMenu("Spawn Cube", CreateCube, buttonIcon);
-                    AMAPI.AddButtonPedalToSubMenu("Tp Cube To Player",() => _controllingGameObject.transform.localPosition = VRCPlayer.field_Internal_Static_VRCPlayer_0.transform.localPosition, buttonIcon);
-                },
-                subMenuIcon
-            );
+            
             for (int i = 0; i < 2; i++) //Set to a high number if you want to test the page functionality 
             {
-                AMAPI.AddModFolder($"Example Mod {i+2}", () => {}, subMenuIcon); 
+                AMUtils.AddToModsFolder($"Example Mod {i+2}", () => {}, subMenuIcon); 
             }
         }
 

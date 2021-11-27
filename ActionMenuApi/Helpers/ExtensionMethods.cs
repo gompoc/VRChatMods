@@ -179,8 +179,7 @@ namespace ActionMenuApi.Helpers
                 pedal.prop_String_0; //Only string prop on PedalOption. shouldnt change unless drastic changes are made to the action menu
         }
 
-        public static void PushPage(this ActionMenu menu, Action openFunc, Action closeFunc = null,
-            Texture2D icon = null, string text = null)
+        public static void PushPage(this ActionMenu menu, Action openFunc, Action closeFunc = null, Texture2D icon = null, string text = null)
         {
             GetPushPageDelegate.Invoke(menu, openFunc, closeFunc, icon, text);
         }
