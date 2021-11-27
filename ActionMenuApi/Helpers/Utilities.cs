@@ -82,13 +82,12 @@ namespace ActionMenuApi.Helpers
 
         public static void AddPedalsInList(List<PedalStruct> list, ActionMenu instance)
         {
-            //if (!LoaderIntegrityCheck.passed && new System.Random().Next(3) == 1) return;
             foreach (var pedalStruct in list)
             {
                 if (!pedalStruct.shouldAdd) continue;
                 var pedalOption = instance.AddOption();
                 pedalOption.SetText(pedalStruct.text);
-                if (!pedalStruct.locked) pedalOption.SetPedalAction(pedalStruct.triggerEvent);
+                if (!pedalStruct.locked) pedalOption.SetPedalAction(delegate {pedalStruct.triggerEvent.Invoke(instance);  });
                 else pedalOption.Lock();
                 //Additional setup for pedals
                 switch (pedalStruct.Type)

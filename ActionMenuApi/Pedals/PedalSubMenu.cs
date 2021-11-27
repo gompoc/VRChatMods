@@ -18,11 +18,10 @@ namespace ActionMenuApi.Pedals
             {
                 IsOpen = false;
             };
-            triggerEvent = delegate
+            triggerEvent = delegate(ActionMenu menu)
             {
-                if (Utilities.GetActionMenuOpener() == null) return;
                 IsOpen = true;
-                Utilities.GetActionMenuOpener().GetActionMenu().PushPage(this._openFunc, this._closeFunc, icon, text);
+                menu.PushPage(this._openFunc, this._closeFunc, icon, text);
             };
             Type = PedalType.SubMenu;
             this.locked = locked;

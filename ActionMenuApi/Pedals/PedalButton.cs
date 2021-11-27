@@ -10,7 +10,7 @@ namespace ActionMenuApi.Pedals
         {
             this.text = text;
             this.icon = icon;
-            this.triggerEvent = triggerEvent;
+            this.triggerEvent = delegate { triggerEvent(); };
             Type = PedalType.Button;
             this.locked = locked;
         }
