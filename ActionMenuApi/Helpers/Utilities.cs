@@ -255,17 +255,11 @@ namespace ActionMenuApi.Helpers
             }
 
             var leftOpener = ActionMenuDriver.prop_ActionMenuDriver_0.GetLeftOpener();
-            if (leftOpener.isOpen())
-            {
-                leftOpener.GetActionMenu().Reset();
-                //leftOpener.GetActionMenu().ResetMenu();
-            }
+            leftOpener.GetActionMenu().Reset();
+
             var rightOpener = ActionMenuDriver.prop_ActionMenuDriver_0.GetRightOpener();
-            if (rightOpener.isOpen())
-            {
-                rightOpener.GetActionMenu().Reset();
-                //rightOpener.GetActionMenu().ResetMenu();
-            }
+            rightOpener.GetActionMenu().Reset();
+            
         }
         
         public static (double x1, double y1, double x2, double y2) GetIntersection(float x, float y, float r)
