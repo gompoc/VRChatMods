@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Mono.Cecil;
@@ -46,18 +47,22 @@ namespace IntegrityCheckWeaver
             var methodRenameMap = CleanMethods(modType);
 
             foreach (var method in modType.Methods)
-            foreach (var instr in method.Body.Instructions)
-                if (instr.OpCode == OpCodes.Ldstr)
-                {
-                    var value = (string)instr.Operand;
-                    instr.Operand = value switch
+            {
+                if (!method.HasBody)
+                    continue;
+                foreach (var instr in method.Body.Instructions)
+                    if (instr.OpCode == OpCodes.Ldstr)
                     {
-                        "_dummy_.dll" => dummyOneName,
-                        "_dummy2_.dll" => dummyTwoName,
-                        "_dummy3_.dll" => dummyThreeName,
-                        _ => methodRenameMap.TryGetValue(value, out var renamed) ? renamed : value
-                    };
-                }
+                        var value = (string) instr.Operand;
+                        instr.Operand = value switch
+                        {
+                            "_dummy_.dll" => dummyOneName,
+                            "_dummy2_.dll" => dummyTwoName,
+                            "_dummy3_.dll" => dummyThreeName,
+                            _ => methodRenameMap.TryGetValue(value, out var renamed) ? renamed : value
+                        };
+                    }
+            }
 
             assembly.Write();
 

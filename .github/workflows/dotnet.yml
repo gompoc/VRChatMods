@@ -35,12 +35,19 @@ jobs:
         body_path: Release.md
         files: |
           Output/Release/ActionMenuApi.dll
+          Output/Release/ActionMenuApi.dll.mdb
           Output/Release/ActionMenuApi.xml
           Output/Release/ActionMenuTestMod.dll
+          Output/Release/ActionMenuTestMod.mdb
           Output/Release/ActionMenuUtils.dll
+          Output/Release/ActionMenuUtils.dll.mdb
           Output/Release/StandaloneThirdPerson.dll
+          Output/Release/StandaloneThirdPerson.dll.mdb
           Output/Release/UpdateChecker.dll
+          Output/Release/UpdateChecker.dll.mdb
           Output/Release/WorldPredownload.dll
+          Output/Release/WorldPredownload.dll.mdb
+          
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         

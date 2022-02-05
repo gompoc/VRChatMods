@@ -2,6 +2,7 @@
     <PropertyGroup>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <ClearOutputDirectory>False</ClearOutputDirectory>
+        <DOCKERVAR>$(DOCKER_RUNNING)</DOCKERVAR>
         <VRChatFolder>E:\Windows\Programs\Software\SteamLibrary\steamapps\common\VRChat</VRChatFolder>
         <MelonManaged>$(VRChatFolder)\MelonLoader\Managed</MelonManaged>
         <MelonLoader>$(VRChatFolder)\MelonLoader</MelonLoader>
@@ -241,14 +242,19 @@
     <ItemGroup Condition="'$(VrcReferences)' == 'true'">
         <ProjectReference Include="$(MsBuildThisFileDirectory)/Tools/IntegrityCheckGenerator/IntegrityCheckGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
         <ProjectReference Include="$(MsBuildThisFileDirectory)Tools\IntegrityCheckWeaver\IntegrityCheckWeaver.csproj" PrivateAssets="all"/>
+        <ProjectReference Include="$(MsBuildThisFileDirectory)Tools\MDBGenerator\MDBGenerator.csproj" PrivateAssets="all"/>
     </ItemGroup>
-    <Target Name="RandomizeIntegrityChecks" AfterTargets="PostBuildEvent" Condition="'$(NoModReferences)' != 'true'">
-        <Exec Command="$(MsBuildThisFileDirectory)\Output\$(Configuration)\IntegrityCheckWeaver.exe $(OutputPath)/$(AssemblyName).dll" />
+    <Target Name="MDBGenerator" AfterTargets="PostBuildEvent" Condition="'$(NoModReferences)' != 'true'">
+        <Exec Command="$(MsBuildThisFileDirectory)\Output\$(Configuration)\MDBGenerator.exe $(OutputPath)/$(AssemblyName).dll" />
+    </Target>
+    <Target Name="RandomizeIntegrityChecks" AfterTargets="MDBGenerator" Condition="'$(NoModReferences)' != 'true'">
+       <Exec Command="$(MsBuildThisFileDirectory)\Output\$(Configuration)\IntegrityCheckWeaver.exe $(OutputPath)/$(AssemblyName).dll" />
     </Target>
     <Target Name="GenerateModJson" AfterTargets="RandomizeIntegrityChecks" Condition="'$(GenerateJson)' == 'true'"> 
         <Exec Command="$(MsBuildThisFileDirectory)\Output\$(Configuration)\ModJsonGenerator.exe $(OutputPath)/$(AssemblyName).dll $(VRChatFolder) $(MsBuildThisFileDirectory) $(GithubRepoUrl) '$(CIVAR)'" />
     </Target>
     <Target Name="CopyModToModsFolder" AfterTargets="GenerateModJson" Condition="'$(CopyToMods)' == 'true' And '$(CIVAR)'==''">
         <Exec Command="xcopy /c /f /y $(OutputPath)\$(AssemblyName).dll $(VRChatFolder)\Mods" />
+        <Exec Command="xcopy /c /f /y $(OutputPath)\$(AssemblyName).dll.mdb $(VRChatFolder)\Mods" />
     </Target>
 </Project>

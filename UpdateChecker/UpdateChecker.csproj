@@ -8,11 +8,12 @@
     </PropertyGroup>
     <ItemGroup>
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-      <PackageReference Include="semver" Version="2.0.6" />
+      <!--<PackageReference Include="semver" Version="2.0.6" />-->
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Tools\ModJsonGenerator\ModJsonGenerator.csproj" />
     </ItemGroup>
+    <!--
     <Import Project="$(MsBuildThisFileDirectory)/../Tools/ILRepack/ILRepack.Lib.MSBuild.Task.targets" />
 
     <Target Name="ILRepack" AfterTargets="Build">
@@ -30,7 +31,9 @@
         <Message Text="MERGING: @(InputAssemblies->'%(Filename)') into $(OutputAssembly)" Importance="High" />
         <ILRepack Internalize="true" LibraryPath="@(IlRepackLibs)" OutputFile="$(OutputPath)/$(AssemblyName).dll" InputAssemblies="@(InputAssemblies)" />
     </Target>
-    <Target Name="PostBuildCopy" AfterTargets="ILRepack" Condition="'$(CIVAR)'==''">
+    -->
+    <Target Name="PostBuildCopy" AfterTargets="Build" Condition="'$(CIVAR)'==''">
         <Exec Command="xcopy /c /f /y $(OutputPath)\$(AssemblyName).dll $(VRChatFolder)\Mods" />
+        <Exec Command="xcopy /c /f /y $(OutputPath)\$(AssemblyName).dll.mdb $(VRChatFolder)\Mods" />
     </Target>
 </Project>
