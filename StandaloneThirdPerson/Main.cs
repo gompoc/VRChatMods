@@ -107,6 +107,8 @@ namespace StandaloneThirdPerson
             if (Input.GetKey(KeyCode.J)) movement -= thirdPersonCamera.transform.right;
             if (Input.GetKey(KeyCode.I)) movement += thirdPersonCamera.transform.forward;
             if (Input.GetKey(KeyCode.K)) movement -= thirdPersonCamera.transform.forward;
+            
+            if (Input.GetKey(KeyCode.RightShift)) movement *= 2;
 
             thirdPersonCamera.transform.position += movement * Time.deltaTime * 2;
         }
