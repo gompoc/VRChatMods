@@ -23,10 +23,12 @@ I highly recommend checking out the canny posts linked below and upvoting if you
 
 To Build simply:
 
-1. Clone repo using git
-2. Open solution in an ide that supports C#
-3. Inside `Directory.Build.props` edit the path inside `<VRChatFolder>` to the path of your own game install
-4. Build Solution
+1. Set a `VRC_DIRECTORY` environment variable. 
+    - On Windows you can run `setx VRC_DIRECTORY "C:\[SomePath]\common\VRChat"`
+
+2. Clone repo using git
+3. Open solution in an ide that supports C#
+4. Build Solution/Specific Project
 
 
 ### ILRepack

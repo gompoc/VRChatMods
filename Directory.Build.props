@@ -3,236 +3,213 @@
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <ClearOutputDirectory>False</ClearOutputDirectory>
         <DOCKERVAR>$(DOCKER_RUNNING)</DOCKERVAR>
-        <VRChatFolder>E:\Windows\Programs\Software\SteamLibrary\steamapps\common\VRChat</VRChatFolder>
+        <VRChatFolder>$(VRC_DIRECTORY)</VRChatFolder>
+        <ModsRefs>$(VRChatFolder)\Mods\</ModsRefs>
         <MelonManaged>$(VRChatFolder)\MelonLoader\Managed</MelonManaged>
         <MelonLoader>$(VRChatFolder)\MelonLoader</MelonLoader>
         <GithubRepoUrl>https://github.com/gompoc/VRChatMods</GithubRepoUrl>
         <CIVAR>$(CI)</CIVAR>
+        
     </PropertyGroup>
+
+    <PropertyGroup Condition="'$(CIVAR)'!=''">
+        <MelonManaged>$(MsBuildThisFileDirectory)Libs\</MelonManaged>
+        <MelonLoader>$(MsBuildThisFileDirectory)Libs\</MelonLoader>
+        <ModRefs>$(MsBuildThisFileDirectory)Libs\</ModRefs>
+    </PropertyGroup>
+    
     <ItemGroup Condition="'$(VrcReferences)' == 'true'">
         <EmbeddedResource Include="$(MsBuildThisFileDirectory)Common\_dummy_.dll"/>
         <EmbeddedResource Include="$(MsBuildThisFileDirectory)Common\_dummy2_.dll"/>
         <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\UnityEngine.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\UnityEngine.dll</HintPath>
+            <HintPath>$(MelonManaged)\UnityEngine.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.AssetBundleModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\UnityEngine.AssetBundleModule.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\UnityEngine.AssetBundleModule.dll</HintPath>
+            <HintPath>$(MelonManaged)\UnityEngine.AssetBundleModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\UnityEngine.AudioModule.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\UnityEngine.AudioModule.dll</HintPath>
+            <HintPath>$(MelonManaged)\UnityEngine.AudioModule.dll</HintPath>
         </Reference>
         <Reference Include="DataModel, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\DataModel.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\DataModel.dll</HintPath>
+            <HintPath>$(MelonManaged)\DataModel.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\UnityEngine.AnimationModule.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\UnityEngine.AnimationModule.dll</HintPath>
+            <HintPath>$(MelonManaged)\UnityEngine.AnimationModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.InputLegacyModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\UnityEngine.InputLegacyModule.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\UnityEngine.InputLegacyModule.dll</HintPath>
+            <HintPath>$(MelonManaged)\UnityEngine.InputLegacyModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.ClothModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\UnityEngine.ClothModule.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\UnityEngine.ClothModule.dll</HintPath>
+            <HintPath>$(MelonManaged)\UnityEngine.ClothModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\UnityEngine.CoreModule.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\UnityEngine.CoreModule.dll</HintPath>
+            <HintPath>$(MelonManaged)\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\UnityEngine.UI.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\UnityEngine.UI.dll</HintPath>
+            <HintPath>$(MelonManaged)\UnityEngine.UI.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\UnityEngine.UIModule.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\UnityEngine.UIModule.dll</HintPath>
+            <HintPath>$(MelonManaged)\UnityEngine.UIModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.TextRenderingModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\UnityEngine.TextRenderingModule.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\UnityEngine.TextRenderingModule.dll</HintPath>
+            <HintPath>$(MelonManaged)\UnityEngine.TextRenderingModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.ParticleSystemModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\UnityEngine.ParticleSystemModule.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\UnityEngine.ParticleSystemModule.dll</HintPath>
+            <HintPath>$(MelonManaged)\UnityEngine.ParticleSystemModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\UnityEngine.PhysicsModule.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\UnityEngine.PhysicsModule.dll</HintPath>
+            <HintPath>$(MelonManaged)\UnityEngine.PhysicsModule.dll</HintPath>
         </Reference>
         <Reference Include="Unity.TextMeshPro, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\Unity.TextMeshPro.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\Unity.TextMeshPro.dll</HintPath>
+            <HintPath>$(MelonManaged)\Unity.TextMeshPro.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UnityWebRequestModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\UnityEngine.UnityWebRequestModule.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\UnityEngine.UnityWebRequestModule.dll</HintPath>
+            <HintPath>$(MelonManaged)\UnityEngine.UnityWebRequestModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UnityWebRequestWWWModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+            <HintPath>$(MelonManaged)\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.VRModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\UnityEngine.VRModule.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\UnityEngine.VRModule.dll</HintPath>
+            <HintPath>$(MelonManaged)\UnityEngine.VRModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.XRModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\UnityEngine.XRModule.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\UnityEngine.XRModule.dll</HintPath>
+            <HintPath>$(MelonManaged)\UnityEngine.XRModule.dll</HintPath>
         </Reference>
         <Reference Include="UniTask, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\UniTask.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\UniTask.dll</HintPath>
+            <HintPath>$(MelonManaged)\UniTask.dll</HintPath>
         </Reference>
         <Reference Include="UnhollowerBaseLib, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\UnhollowerBaseLib.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\UnhollowerBaseLib.dll</HintPath>
+            <HintPath>$(MelonManaged)\UnhollowerBaseLib.dll</HintPath>
         </Reference>
         <Reference Include="Il2Cppmscorlib, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\Il2Cppmscorlib.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\Il2Cppmscorlib.dll</HintPath>
+            <HintPath>$(MelonManaged)\Il2Cppmscorlib.dll</HintPath>
         </Reference>
         <Reference Include="Il2CppSystem, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\Il2CppSystem.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\Il2CppSystem.dll</HintPath>
+            <HintPath>$(MelonManaged)\Il2CppSystem.dll</HintPath>
         </Reference>
         <Reference Include="Il2CppSystem.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\Il2CppSystem.Core.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\Il2CppSystem.Core.dll</HintPath>
+            <HintPath>$(MelonManaged)\Il2CppSystem.Core.dll</HintPath>
         </Reference>
         <Reference Include="MelonLoader, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonLoader)\MelonLoader.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\MelonLoader.dll</HintPath>
+            <HintPath>$(MelonLoader)\MelonLoader.dll</HintPath>
+        </Reference>
+        <Reference Include="0Harmony, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <SpecificVersion>false</SpecificVersion>
+            <Private>false</Private>
+            <HintPath>$(MelonLoader)\0Harmony.dll</HintPath>
         </Reference>
         <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\Assembly-CSharp.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\Assembly-CSharp.dll</HintPath>
+            <HintPath>$(MelonManaged)\Assembly-CSharp.dll</HintPath>
         </Reference>
         <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\Assembly-CSharp-firstpass.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\Assembly-CSharp-firstpass.dll</HintPath>
+            <HintPath>$(MelonManaged)\Assembly-CSharp-firstpass.dll</HintPath>
         </Reference>
         <Reference Include="DOTween, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\DOTween.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\DOTween.dll</HintPath>
+            <HintPath>$(MelonManaged)\DOTween.dll</HintPath>
         </Reference>
         <Reference Include="Transmtn, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\Transmtn.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\Transmtn.dll</HintPath>
+            <HintPath>$(MelonManaged)\Transmtn.dll</HintPath>
         </Reference>
         <Reference Include="UIExpansionKit, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(VRChatFolder)\Mods\UIExpansionKit.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\UIExpansionKit.dll</HintPath>
+            <HintPath>$(VRChatFolder)\Mods\UIExpansionKit.dll</HintPath>
         </Reference>
         <Reference Include="VRCCore-Standalone, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\VRCCore-Standalone.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\VRCCore-Standalone.dll</HintPath>
+            <HintPath>$(MelonManaged)\VRCCore-Standalone.dll</HintPath>
         </Reference>
         <Reference Include="VRCCore-Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\VRCCore-Editor.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\VRCCore-Editor.dll</HintPath>
+            <HintPath>$(MelonManaged)\VRCCore-Editor.dll</HintPath>
         </Reference>
         <Reference Include="VRCSDK2, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\VRCSDK2.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\VRCSDK2.dll</HintPath>
+            <HintPath>$(MelonManaged)\VRCSDK2.dll</HintPath>
         </Reference>
         <Reference Include="VRCSDK3A, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\VRCSDK3A.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\VRCSDK3A.dll</HintPath>
+            <HintPath>$(MelonManaged)\VRCSDK3A.dll</HintPath>
         </Reference>
         <Reference Include="VRCSDKBase, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\VRCSDKBase.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\VRCSDKBase.dll</HintPath>
+            <HintPath>$(MelonManaged)\VRCSDKBase.dll</HintPath>
         </Reference>
         <Reference Include="VRCSDKBase, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\VRCSDKBase.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\VRCSDKBase.dll</HintPath>
+            <HintPath>$(MelonManaged)\VRCSDKBase.dll</HintPath>
         </Reference>
         <Reference Include="VRC.UI.Elements, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\VRC.UI.Elements.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\VRC.UI.Elements.dll</HintPath>
+            <HintPath>$(MelonManaged)\VRC.UI.Elements.dll</HintPath>
         </Reference>
         <Reference Include="Facepunch.Steamworks.Win64, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath Condition="'$(CIVAR)'==''">$(MelonManaged)\Facepunch.Steamworks.Win64.dll</HintPath>
-            <HintPath Condition="'$(CIVAR)'!=''">$(MsBuildThisFileDirectory)Libs\Facepunch.Steamworks.Win64.dll</HintPath>
+            <HintPath>$(MelonManaged)\Facepunch.Steamworks.Win64.dll</HintPath>
         </Reference>
     </ItemGroup>
 
