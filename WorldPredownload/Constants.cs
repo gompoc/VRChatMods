@@ -35,6 +35,7 @@ namespace WorldPredownload
         public const string SUCCESS_LEFT_BTN_TEXT = "Go to World Page";
         public const string SUCCESS_RIGHT_BTN_TEXT = "Dismiss";
         public const string SUCCESS_LEFT_BTN_TEXT_F = "Go to Friend Page";
+        public const string SUCCESS_LEFT_BTN_TEXT_P = "Join portal instance";
         public const float FRIEND_PANEL_YPOS = -350f;
         public const float FRIEND_PANEL_YSCALE = 1.1f;
         public const float SOCIAL_PANEL_YPOS = 384f;

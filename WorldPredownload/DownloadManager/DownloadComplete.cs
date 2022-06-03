@@ -110,6 +110,19 @@ namespace WorldPredownload.DownloadManager
                     }
 
                     break;
+
+                case DownloadType.Portal:
+                    if (!ModSettings.autoFollowPortals)
+                    {
+                        if (ModSettings.showPopupsOnComplete)
+                            DisplayPortalPopup();
+                    }
+                    else
+                    {
+                        Utilities.GoToWorld(DownloadInfo.ApiWorld, DownloadInfo.InstanceIDTags, false);
+                    }
+
+                    break;
             }
         }
     }

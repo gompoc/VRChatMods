@@ -12,15 +12,17 @@ namespace WorldPredownload.DownloadManager
             DownloadType downloadType,
             PageUserInfo pageUserInfo = null!,
             PageWorldInfo pageWorldInfo = null!,
-            Notification notification = null!)
+            Notification notification = null!,
+            PortalInternal portal = null!)
         {
-            this.ApiWorld = apiWorld;
-            this.InstanceIDTags = instanceIDTags;
-            this.DownloadType = downloadType;
-            this.PageUserInfo = pageUserInfo;
+            ApiWorld = apiWorld;
+            InstanceIDTags = instanceIDTags;
+            DownloadType = downloadType;
+            PageUserInfo = pageUserInfo;
             if (pageUserInfo != null) APIUser = pageUserInfo.field_Private_APIUser_0;
-            this.PageWorldInfo = pageWorldInfo;
-            this.Notification = notification;
+            PageWorldInfo = pageWorldInfo;
+            Notification = notification;
+            Portal = portal;
         }
 
         public ApiWorld ApiWorld { get; set; }
@@ -31,6 +33,7 @@ namespace WorldPredownload.DownloadManager
         public APIUser? APIUser { get; set; }
         public PageWorldInfo? PageWorldInfo { get; set; }
         public Notification? Notification { get; set; }
+        public PortalInternal? Portal { get; set; }
 
         public static DownloadInfo CreateInviteDownloadInfo(
             ApiWorld apiWorld,
@@ -40,7 +43,7 @@ namespace WorldPredownload.DownloadManager
         {
             return new(apiWorld, instanceIDTags, downloadType, null!, null!, notification);
         }
-        
+
         public static DownloadInfo CreateWorldPageDownloadInfo(
             ApiWorld apiWorld,
             string instanceIDTags,
@@ -57,6 +60,15 @@ namespace WorldPredownload.DownloadManager
             PageUserInfo pageUserInfo)
         {
             return new(apiWorld, instanceIDTags, downloadType, pageUserInfo);
+        }
+
+        public static DownloadInfo CreatePortalDownloadInfo(
+            ApiWorld apiWorld,
+            string instanceIDTags,
+            DownloadType downloadType,
+            PortalInternal portal)
+        {
+            return new(apiWorld, instanceIDTags, downloadType, null!, null!, null!, portal);
         }
     }
 }
