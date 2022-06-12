@@ -4,6 +4,7 @@
     {
         World,
         Friend,
-        Invite
+        Invite,
+        Portal
     }
 }

@@ -3,7 +3,7 @@ using ModJsonGenerator;
 using UIExpansionKit.API;
 using WorldPredownload.UI;
 
-[assembly: MelonInfo(typeof(WorldPredownload.WorldPredownload), "WorldPredownload", "1.6.7", "gompo", "https://github.com/gompoc/VRChatMods/releases/")]
+[assembly: MelonInfo(typeof(WorldPredownload.WorldPredownload), "WorldPredownload", "1.6.8", "gompo", "https://github.com/gompoc/VRChatMods/releases/")]
 [assembly: MelonGame("VRChat", "VRChat")]
 [assembly: ModJsonInfo(
         141,
@@ -39,7 +39,6 @@ namespace WorldPredownload
             ExpansionKitApi.OnUiManagerInit += UiManagerInit;
         }
 
-
         private void UiManagerInit()
         {
             if (string.IsNullOrEmpty(ID)) return;
@@ -48,6 +47,7 @@ namespace WorldPredownload
             WorldButton.Setup();
             //WorldDownloadStatus.Setup();
             HudIcon.Setup();
+            PortalButton.Setup();
         }
 
         public override void OnPreferencesLoaded()
