@@ -5,10 +5,12 @@ using MelonLoader;
 using ModJsonGenerator;
 using Newtonsoft.Json;
 using Semver;
+using UpdateChecker;
 using Main = UpdateChecker.Main;
 
+
 [assembly: MelonGame("VRChat", "VRChat")]
-[assembly: MelonInfo(typeof(Main), "UpdateChecker", "1.0.0", "gompo", "https://github.com/gompoc/VRChatMods/releases/")]
+[assembly: MelonInfo(typeof(Main), "UpdateChecker", ModConstants.VERSION, "gompo", "https://github.com/gompoc/VRChatMods/releases/")]
 [assembly: MelonColor(ConsoleColor.Magenta)]
 [assembly: ModJsonInfo(
         249, 
@@ -23,6 +25,11 @@ using Main = UpdateChecker.Main;
 ]
 namespace UpdateChecker
 {
+    public static class ModConstants
+    {
+        public const string VERSION = "1.0.1";
+    }
+
     public partial class Main : MelonMod
     {
         public override void OnApplicationStart()
@@ -31,15 +38,15 @@ namespace UpdateChecker
             string apiResponse;
             using var client = new WebClient
             {
-                Headers = {["User-Agent"] = "UpdateChecker"}
+                Headers = {["User-Agent"] = "UpdateChecker/" + ModConstants.VERSION }
             };
             try
             {
-                apiResponse = client.DownloadString("https://api.vrcmg.com/v0/mods.json");
+                apiResponse = client.DownloadString("https://api.vrcmg.com/v1/mods");
             }
             catch (WebException e)
             {
-                MelonLogger.Error($"Failed to contact api: {e.Message}");
+                LoggerInstance.Error($"Failed to contact api: {e.Message}");
                 return;
             }
             
@@ -47,7 +54,7 @@ namespace UpdateChecker
 
             if (mods == null || mods.Count == 0)
             {
-                MelonLogger.Error("Didn't receive any mods from the api");
+                LoggerInstance.Error("Didn't receive any mods from the api");
                 return;
             }
             
@@ -60,7 +67,7 @@ namespace UpdateChecker
                 var modVersion = mod.versions[0];
                 try
                 {
-                    modVersion.SemVersion = SemVersion.Parse(modVersion.modversion);
+                    modVersion.SemVersion = SemVersion.Parse(modVersion.modVersion);
                 }
                 catch (ArgumentException)
                 {
@@ -68,9 +75,9 @@ namespace UpdateChecker
                 }
                 foreach (var alias in mod.aliases)
                 {
-                    if(modVersion.ApprovalStatus == 2) 
+                    if(modVersion.approvalStatus == 2) 
                         brokenModsLookUpTable.Add(alias, modVersion);
-                    else if(modVersion.ApprovalStatus == 1)
+                    else if(modVersion.approvalStatus == 1)
                         workingModsLookUpTable.Add(alias, modVersion);
                 }
             }
@@ -89,19 +96,19 @@ namespace UpdateChecker
                             throw new ArgumentException();
                         
                         if (semVersion < latestVersion.SemVersion)
-                            MelonLogger.Msg(ConsoleColor.Green,$"Mod {melon.Info.Name} by {melon.Info.Author} is out of date. {melon.Info.Version} --> {latestVersion.modversion}");
+                            LoggerInstance.Msg(ConsoleColor.Green,$"Mod {melon.Info.Name} by {melon.Info.Author} is out of date. {melon.Info.Version} --> {latestVersion.modVersion}");
                         
                     }
                     else if (brokenModsLookUpTable.ContainsKey(melon.Info.Name))
-                        MelonLogger.Msg(ConsoleColor.Yellow,$"Running currently broken mod: {melon.Info.Name} by {melon.Info.Author}");
+                        LoggerInstance.Msg(ConsoleColor.Yellow,$"Running currently broken mod: {melon.Info.Name} by {melon.Info.Author}");
                     
                     else if (!melon.Info.Name.Equals("UpdateChecker"))
-                        MelonLogger.Msg(ConsoleColor.Blue,$"Running unknown mod: {melon.Info.Name} by {melon.Info.Author}");
+                        LoggerInstance.Msg(ConsoleColor.Blue,$"Running unknown mod: {melon.Info.Name} by {melon.Info.Author}");
 
                 }
                 catch(ArgumentException)
                 {
-                    MelonLogger.Msg(ConsoleColor.Red,$"MelonMod {melon.Info.Name} isn't following semver. Skipping...");   
+                    LoggerInstance.Msg(ConsoleColor.Red,$"MelonMod {melon.Info.Name} isn't following semver. Skipping...");   
                 }
             }
         }
