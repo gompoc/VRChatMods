@@ -63,6 +63,11 @@ namespace ActionMenuApi.Api
         /// <summary>
         ///     The options page, toggle mic, close menu etc.
         /// </summary>
-        Options
+        Options,
+        
+        /// <summary>
+        ///     Mods page (duh?)
+        /// </summary>
+        Mods
     }
 }

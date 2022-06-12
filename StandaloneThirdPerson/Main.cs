@@ -7,7 +7,7 @@ using UnityEngine.XR;
 using Main = StandaloneThirdPerson.Main;
 
 [assembly: MelonGame("VRChat", "VRChat")]
-[assembly: MelonInfo(typeof(Main), "StandaloneThirdPerson", "1.3.3", "gompo & ljoonal", "https://github.com/gompoc/VRChatMods/releases/")]
+[assembly: MelonInfo(typeof(Main), "StandaloneThirdPerson", "1.3.4", "gompo & ljoonal", "https://github.com/gompoc/VRChatMods/releases/")]
 [assembly: ModJsonInfo(
         242, 
     "A simple standalone third person mod\n" +
@@ -17,7 +17,7 @@ using Main = StandaloneThirdPerson.Main;
     "- Has a \"freecam\". Keybind needs to be set first to use. You can use arrow keys to look up/down/left/right and I/J/K/L to move the camera", 
     new []{"Third person", "freecam", "freeview", "camera"}, 
     null, 
-    "Fix crap for ui update", 
+    "Fix random null ref", 
     "#2ad9f7"
     )
 ]

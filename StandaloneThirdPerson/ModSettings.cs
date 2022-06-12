@@ -31,6 +31,8 @@ namespace StandaloneThirdPerson
         public static bool Enabled { get; private set; } = true;
         public static bool FreeformEnabled { get; private set; } = true;
 
+        private static bool registered = false;
+
 
         public static void RegisterSettings()
         {
@@ -46,10 +48,14 @@ namespace StandaloneThirdPerson
             rearCameraChangerEnabled = category.CreateEntry("Rear Camera Changer Enabled", RearCameraChangedEnabled, "Rear Camera Changer Enabled");
             moveRearCameraLeftKeyBind = category.CreateEntry("Move Rear Camera Left KeyBind", MoveRearCameraLeftKeyBind.ToString(), "Move Rear Camera Left KeyBind");
             moveRearCameraRightKeyBind = category.CreateEntry("Move Rear Camera Right KeyBind", MoveRearCameraRightKeyBind.ToString(), "Move Rear Camera Right KeyBind");
+            registered = true;
         }
 
         public static void LoadSettings()
         {
+            if (!registered)
+                return;
+            
             KeyBind = keyBind.TryParseKeyCodePref();
             SecondaryKeyBind = secondaryKeyBind.TryParseKeyCodePref(true);
             FreeformKeyBind = freeformKeyBind.TryParseKeyCodePref(true);
