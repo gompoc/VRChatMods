@@ -1,5 +1,6 @@
 /Output
 obj/
+.vs/
 .idea
 ModJsons/
 packages/
