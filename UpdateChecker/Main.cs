@@ -35,7 +35,7 @@ namespace UpdateChecker
             };
             try
             {
-                apiResponse = client.DownloadString("https://api.vrcmg.com/v0/mods.json");
+                apiResponse = client.DownloadString("https://api.vrcmg.com/v1/mods");
             }
             catch (WebException e)
             {
@@ -60,7 +60,7 @@ namespace UpdateChecker
                 var modVersion = mod.versions[0];
                 try
                 {
-                    modVersion.SemVersion = SemVersion.Parse(modVersion.modversion);
+                    modVersion.SemVersion = SemVersion.Parse(modVersion.modVersion);
                 }
                 catch (ArgumentException)
                 {
@@ -68,9 +68,9 @@ namespace UpdateChecker
                 }
                 foreach (var alias in mod.aliases)
                 {
-                    if(modVersion.ApprovalStatus == 2) 
+                    if(modVersion.approvalStatus == 2) 
                         brokenModsLookUpTable.Add(alias, modVersion);
-                    else if(modVersion.ApprovalStatus == 1)
+                    else if(modVersion.approvalStatus == 1)
                         workingModsLookUpTable.Add(alias, modVersion);
                 }
             }
@@ -89,7 +89,7 @@ namespace UpdateChecker
                             throw new ArgumentException();
                         
                         if (semVersion < latestVersion.SemVersion)
-                            MelonLogger.Msg(ConsoleColor.Green,$"Mod {melon.Info.Name} by {melon.Info.Author} is out of date. {melon.Info.Version} --> {latestVersion.modversion}");
+                            MelonLogger.Msg(ConsoleColor.Green,$"Mod {melon.Info.Name} by {melon.Info.Author} is out of date. {melon.Info.Version} --> {latestVersion.modVersion}");
                         
                     }
                     else if (brokenModsLookUpTable.ContainsKey(melon.Info.Name))
