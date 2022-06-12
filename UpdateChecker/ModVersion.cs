@@ -4,8 +4,8 @@ namespace UpdateChecker
 {
     public class ModVersion
     {
-        public string modversion;
+        public string modVersion;
         public SemVersion SemVersion;
-        public int ApprovalStatus;
+        public int approvalStatus;
     }
 }

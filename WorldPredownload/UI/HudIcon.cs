@@ -41,7 +41,7 @@ namespace WorldPredownload.UI
 
         private static Image CreateImage(string name)
         {
-            var hudRoot = GameObject.Find("UserInterface/UnscaledUI/HudContent/Hud");
+            var hudRoot = GameObject.Find("UserInterface/UnscaledUI/HudContent_Old/Hud");
             var requestedParent = hudRoot.transform.Find("NotificationDotParent");
             var indicator = Object
                 .Instantiate(hudRoot.transform.Find("NotificationDotParent/NotificationDot").gameObject,

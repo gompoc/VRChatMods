@@ -3,18 +3,18 @@
     <PropertyGroup>
         <TargetFramework>net472</TargetFramework>
         <VrcReferences>true</VrcReferences>
-        <Version>1.6.6.0</Version>
+        <Version>1.6.8.0</Version>
         <LangVersion>9</LangVersion>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <Nullable>annotations</Nullable>
         <CopyToMods>true</CopyToMods>
         <GenerateJson>true</GenerateJson>
     </PropertyGroup>
-    
+
     <ItemGroup>
         <EmbeddedResource Include="gompowpd" />
     </ItemGroup>
-    
+
     <ItemGroup>
         <ProjectReference Include="..\Tools\ModJsonGenerator\ModJsonGenerator.csproj" />
     </ItemGroup>

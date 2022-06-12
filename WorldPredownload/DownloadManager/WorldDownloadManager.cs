@@ -110,6 +110,27 @@ namespace WorldPredownload.DownloadManager
             );
         }
 
+        private static void DisplayPortalPopup()
+        {
+            Utilities.ShowOptionPopup(
+                Constants.SUCCESS_TITLE,
+                Constants.SUCCESS_MSG,
+                Constants.SUCCESS_LEFT_BTN_TEXT_P,
+                new Action(delegate
+                {
+                    Utilities.HideCurrentPopup();
+                    Utilities.GoToWorld(DownloadInfo.ApiWorld, DownloadInfo.InstanceIDTags, false);
+                    ClearDownload();
+                }),
+                Constants.SUCCESS_RIGHT_BTN_TEXT,
+                new Action(delegate
+                {
+                    Utilities.HideCurrentPopup();
+                    ClearDownload();
+                })
+            );
+        }
+
         private static void DownloadWorld(ApiWorld apiWorld)
         {
             if (!Downloading)
@@ -182,7 +203,7 @@ namespace WorldPredownload.DownloadManager
             #if DEBUG
             MelonLogger.Msg($"AssetUrl: {apiWorld.assetUrl}");
             #endif
-            
+
             webClient.DownloadFileAsync(new Uri(apiWorld.assetUrl), fileName);
         }
     }

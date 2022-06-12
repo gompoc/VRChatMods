@@ -12,6 +12,7 @@ namespace WorldPredownload
         internal static MelonPreferences_Entry<bool> AutoFollowInvites,
             AutoFollowFriends,
             AutoFollowWorlds,
+            AutoFollowPortals,
             ShowStatusOnQM,
             HideQMStatusWhenInActive,
             ShowHudMessages,
@@ -24,6 +25,7 @@ namespace WorldPredownload
         public static bool autoFollowInvites { get; private set; }
         public static bool autoFollowFriends { get; private set; }
         public static bool autoFollowWorlds { get; private set; }
+        public static bool autoFollowPortals { get; private set; } = false;
         public static bool showStatusOnQM { get; private set; } = true;
         public static bool hideQMStatusWhenInActive { get; private set; }
         public static bool showHudMessages { get; private set; } = true;
@@ -45,13 +47,14 @@ namespace WorldPredownload
             AutoFollowInvites = category.CreateEntry("AutoFollowInvites", autoFollowInvites, "Auto Follow Invite Predownloads");
             AutoFollowWorlds = category.CreateEntry("AutoFollowWorlds", autoFollowWorlds, "Auto Join World Predownloads");
             AutoFollowFriends = category.CreateEntry("AutoFollowFriends", autoFollowFriends, "Auto Join Friend Predownloads");
+            AutoFollowPortals = category.CreateEntry("AutoFollowPortals", autoFollowPortals, "Auto Join Portal Predownloads");
             ShowStatusOnQM = category.CreateEntry("ShowStatusOnQM", showStatusOnQM, "Display download status on QM");
             HideQMStatusWhenInActive = category.CreateEntry("HideQMStatusWhenInActive", hideQMStatusWhenInActive, "Hide status on QM when not downloading");
             ShowStatusOnHud = category.CreateEntry("ShowStatusOnHud", showStatusOnHud, "Display download status on HUD");
             ShowHudMessages = category.CreateEntry("ShowHudMessages", showHudMessages, "Show Hud Messages");
             ShowPopupsOnComplete = category.CreateEntry("ShowPopupsOnComplete", showPopupsOnComplete, "Show Popup On Complete");
             DownloadUserAgent = category.CreateEntry("DownloadUserAgent", downloadUserAgent, null, null, true);
-            
+
             //CVRStyle = category.CreateEntry("OverrideVRChatJoinWorldButtons", cvrStyle, "Override VRChat Join Buttons (CVR Style  & Requires Restart to Apply)") as MelonPreferences_Entry<bool>;
             if (AdvancedInvites)
                 TryUseAdvancedInvitePopup = category.CreateEntry("UseAdvancedInvitesPopup", tryUseAdvancedInvitePopup, "Accept invites using AdvancedInvites popup");
