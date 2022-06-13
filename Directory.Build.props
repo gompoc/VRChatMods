@@ -4,13 +4,12 @@
         <ClearOutputDirectory>False</ClearOutputDirectory>
         <DOCKERVAR>$(DOCKER_RUNNING)</DOCKERVAR>
         <VRChatFolder>$(VRC_DIRECTORY)</VRChatFolder>
-        <ModsRefs>$(VRChatFolder)\Mods\</ModsRefs>
+        <ModRefs>$(VRChatFolder)\Mods</ModRefs>
         <MelonManaged>$(VRChatFolder)\MelonLoader\Managed</MelonManaged>
         <MelonLoader>$(VRChatFolder)\MelonLoader</MelonLoader>
         <LangVersion>10</LangVersion>
         <GithubRepoUrl>https://github.com/gompoc/VRChatMods</GithubRepoUrl>
         <CIVAR>$(CI)</CIVAR>
-        
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(CIVAR)'!=''">
@@ -170,7 +169,7 @@
         <Reference Include="UIExpansionKit, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
             <Private>false</Private>
-            <HintPath>$(ModsRefs)\UIExpansionKit.dll</HintPath>
+            <HintPath>$(ModRefs)\UIExpansionKit.dll</HintPath>
         </Reference>
         <Reference Include="VRCCore-Standalone, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
             <SpecificVersion>false</SpecificVersion>
