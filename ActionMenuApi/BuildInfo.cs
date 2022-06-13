@@ -22,7 +22,7 @@ using ModJsonGenerator;
         "Example mod and documentation can be found on github",
         new []{"action menu", "api", "radial menu"}, 
         null,
-        "Fix crap for ui update", 
+        "TODO", 
         "#2ad9f7"
     )
 ]

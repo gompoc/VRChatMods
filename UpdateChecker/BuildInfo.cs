@@ -15,7 +15,7 @@ using Main = UpdateChecker.Main;
         "- Only works for mods that follow the semver format",
         null,
         null,
-        null,
+        "Updated to api/v1 (Credit to DubyaDude)",
         "#2ad9f7"
     )
 ]

@@ -17,7 +17,7 @@ using WorldPredownload;
         "-Options to follow predownloads configurable via UIX too",
         new []{"world", "download", "preload", "predownload"},
         new []{"[UIExpansionKit](https://api.vrcmg.com/v0/mods/55/UIExpansionKit.dll)"},
-        "Compatibility fix for build 1151",
+        "Compatibility fix for update and add ability to download worlds via portals (credit to yobson)",
         "#2ad9f7"
     )
 ]
