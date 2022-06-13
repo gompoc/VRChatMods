@@ -7,6 +7,7 @@
         <ModsRefs>$(VRChatFolder)\Mods\</ModsRefs>
         <MelonManaged>$(VRChatFolder)\MelonLoader\Managed</MelonManaged>
         <MelonLoader>$(VRChatFolder)\MelonLoader</MelonLoader>
+        <LangVersion>10</LangVersion>
         <GithubRepoUrl>https://github.com/gompoc/VRChatMods</GithubRepoUrl>
         <CIVAR>$(CI)</CIVAR>
         

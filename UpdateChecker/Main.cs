@@ -2,33 +2,11 @@
 using System.Collections.Generic;
 using System.Net;
 using MelonLoader;
-using ModJsonGenerator;
 using Newtonsoft.Json;
 using Semver;
-using UpdateChecker;
-using Main = UpdateChecker.Main;
 
-
-[assembly: MelonGame("VRChat", "VRChat")]
-[assembly: MelonInfo(typeof(Main), "UpdateChecker", ModConstants.VERSION, "gompo", "https://github.com/gompoc/VRChatMods/releases/")]
-[assembly: MelonColor(ConsoleColor.Magenta)]
-[assembly: ModJsonInfo(
-        249, 
-        "- Simple mod for people who dislike auto updaters\n" +
-        "- Checks for mod updates and lets you know in the console\n" +
-        "- Only works for mods that follow the semver format",
-        null,
-        null,
-        null,
-        "#2ad9f7"
-    )
-]
 namespace UpdateChecker
 {
-    public static class ModConstants
-    {
-        public const string VERSION = "1.0.1";
-    }
 
     public partial class Main : MelonMod
     {

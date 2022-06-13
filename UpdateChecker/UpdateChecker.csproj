@@ -2,36 +2,15 @@
     <PropertyGroup>
         <TargetFramework>net472</TargetFramework>
         <VrcReferences>true</VrcReferences>
-        <Version>1.0.0.0</Version>
-        <LangVersion>9</LangVersion>
         <GenerateJson>true</GenerateJson>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     </PropertyGroup>
     <ItemGroup>
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-      <!--<PackageReference Include="semver" Version="2.0.6" />-->
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Tools\ModJsonGenerator\ModJsonGenerator.csproj" />
     </ItemGroup>
-    <!--
-    <Import Project="$(MsBuildThisFileDirectory)/../Tools/ILRepack/ILRepack.Lib.MSBuild.Task.targets" />
-
-    <Target Name="ILRepack" AfterTargets="Build">
-        <PropertyGroup>
-            <WorkingDirectory>$(OutputPath)</WorkingDirectory>
-        </PropertyGroup>
-        <ItemGroup>
-            <InputAssemblies Include="$(OutputPath)/$(AssemblyName).dll" />
-            <InputAssemblies Include="$(OutputPath)/Semver.dll" />
-            <IlRepackLibs Include="$(OutputPath)" />
-            <IlRepackLibs Condition="'$(CIVAR)'==''" Include="$(MelonManaged)" />
-            <IlRepackLibs Condition="'$(CIVAR)'==''" Include="$(MelonLoader)" />
-            <IlRepackLibs Condition="'$(CIVAR)'!=''" Include="$(MsBuildThisFileDirectory)/../Libs" />
-        </ItemGroup>
-        <Message Text="MERGING: @(InputAssemblies->'%(Filename)') into $(OutputAssembly)" Importance="High" />
-        <ILRepack Internalize="true" LibraryPath="@(IlRepackLibs)" OutputFile="$(OutputPath)/$(AssemblyName).dll" InputAssemblies="@(InputAssemblies)" />
-    </Target>
-    -->
     <Target Name="PostBuildCopy" AfterTargets="Build" Condition="'$(CIVAR)'==''">
         <Exec Command="xcopy /c /f /y $(OutputPath)\$(AssemblyName).dll $(VRChatFolder)\Mods" />
         <Exec Command="xcopy /c /f /y $(OutputPath)\$(AssemblyName).dll.mdb $(VRChatFolder)\Mods" />

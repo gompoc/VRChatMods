@@ -1,26 +1,9 @@
 ﻿using System.Collections;
 using HarmonyLib;
 using MelonLoader;
-using ModJsonGenerator;
 using UnityEngine;
 using UnityEngine.XR;
-using Main = StandaloneThirdPerson.Main;
 
-[assembly: MelonGame("VRChat", "VRChat")]
-[assembly: MelonInfo(typeof(Main), "StandaloneThirdPerson", "1.3.4", "gompo & ljoonal", "https://github.com/gompoc/VRChatMods/releases/")]
-[assembly: ModJsonInfo(
-        242, 
-    "A simple standalone third person mod\n" +
-    "- Keybind configurable via uix/config file. Valid values can be found here: https://docs.unity3d.com/ScriptReference/KeyCode.html\n" +
-    "- Third person camera fov and nearclipplane value can also be configured through uix/config file\n" +
-    "- Rear camera can be move over to the left or right of your avatar using keybinds that are also configurable through uix/config file\n" +
-    "- Has a \"freecam\". Keybind needs to be set first to use. You can use arrow keys to look up/down/left/right and I/J/K/L to move the camera", 
-    new []{"Third person", "freecam", "freeview", "camera"}, 
-    null, 
-    "Fix random null ref", 
-    "#2ad9f7"
-    )
-]
 
 namespace StandaloneThirdPerson
 {
