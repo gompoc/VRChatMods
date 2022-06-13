@@ -16,7 +16,7 @@ namespace ModJsonGenerator
         {
             using var assembly = AssemblyDefinition.ReadAssembly(new FileStream(args[0], FileMode.Open, FileAccess.ReadWrite));
             
-            if (!args[4].Equals("''"))
+            if (args.Length != 5)
             {
                 goto cleanup;
             }
