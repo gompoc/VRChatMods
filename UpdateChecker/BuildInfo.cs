@@ -28,7 +28,7 @@ using Main = UpdateChecker.Main;
 namespace UpdateChecker;
 public static class ModConstants
 {
-    public const string VERSION = "1.0.1";
+    public const string VERSION = "1.0.2";
     public const string NAME = "UpdateChecker";
     public const string AUTHOR = "gompo, DubyaDude";
     public const string DOWNLOAD_LINK = "https://github.com/gompoc/VRChatMods/releases/";
