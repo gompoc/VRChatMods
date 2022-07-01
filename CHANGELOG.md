@@ -1,7 +1,10 @@
+### Update Checker v1.0.2
+- Added Retired Support (ApprovalStatus 3) (Credit to DubyaDude)
+
 ### ActionMenuApi v1.0.0
 - TODO
 
-### Update Checker v1.0.1
+### Update Checker v1.0.2
 - Updated to api/v1 (Credit to DubyaDude)
 
 ### StandaloneThirdPerson v1.3.4
