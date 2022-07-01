@@ -222,7 +222,7 @@ namespace ActionMenuApi.Api
                             pedalOption.SetPedalTypeIcon(Utilities.GetExpressionsIcons().typeToggleOn);
                         else
                             pedalOption.SetPedalTypeIcon(Utilities.GetExpressionsIcons().typeToggleOff);
-                        onToggle.Invoke(startingState);
+                        onToggle(startingState);
                     }
                 );
             else pedalOption.Lock();
