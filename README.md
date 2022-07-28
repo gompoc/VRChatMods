@@ -1,3 +1,6 @@
+# Archive Notice
+As of the latest VRChat update on 2022/07/27 the game now comes with Easy Anti Cheat. This makes open source modding near impossible. ChilloutVR is another alternative for a VR social game that supports modding and has friendly developers that listen to their community. Sure it might never be as big as VRChat is but I for one will likely never play VRChat again. 
+
 # Disclaimer
 
 Modding the VRChat client is against VRChat's Terms of Service. Therefore use these mods at your own risk. I am not responsible for if you get banned or any other punishment by using these mods!
